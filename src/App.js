@@ -10,7 +10,8 @@ class App extends React.Component {
 
     this.state = {
       team: '',
-      player: ''
+      player: '',
+      team: ''
 
     };
 
@@ -25,6 +26,7 @@ class App extends React.Component {
   onButtonClick(e) {
 
     let playerName = this.state.player
+    console.log(playerName);
 
     axios({
       "method": "GET",
@@ -37,16 +39,19 @@ class App extends React.Component {
       "params": {
         "page": "0",
         "per_page": "25",
-        "search": `lebron` // TODO WHY CANT I PASS A PROP/STATE HERE //Returns players with provided name in their name (Not case sensative)
+        "search": `${this.state.player} `,
+
       }
     })
       .then((response) => {
         console.log(response.data.data[0]) // First Result from filtered return list
-        console.log(response.data.data[0].first_name) 
-        console.log(response.data.data[0].last_name) 
+        console.log(response.data.data[0].first_name) // first name of the first result from list
+        console.log(response.data.data[0].last_name)
 
         this.setState({
-          player: `${response.data.data[0].first_name} ${response.data.data[0].last_name}` 
+          player: `${response.data.data[0].first_name} ${response.data.data[0].last_name}`,
+          team: `${response.data.data[0].team.city}`
+
         })
 
       })
@@ -59,7 +64,7 @@ class App extends React.Component {
   render() {
 
 
-    let player = <Player player={this.state.player} />
+
 
     return (
       <div>
@@ -68,17 +73,18 @@ class App extends React.Component {
 
         {/* <Player player={this.state.player}/> */}
 
-          <label> Type Player Name: </label>
-          <input
-            // value={this.state.player} // this.state.fullName
-            onChange={event => this.genericSync(event)}
-            type="text"
-            name="player"
+        <label> Type Player Name: </label>
+        <input
+          // value={this.state.player} // this.state.fullName
+          onChange={event => this.genericSync(event)}
+          type="text"
+          name="player"
           placeholder="Michael Jordan"
-          />
+        />
 
-          <button onClick={() => this.onButtonClick()} />
-          {player}
+        <button onClick={() => this.onButtonClick()} />
+        <Player player={this.state.player} />
+        <Team team={this.state.team} />
 
 
       </div>
