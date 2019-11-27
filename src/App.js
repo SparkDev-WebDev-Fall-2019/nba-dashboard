@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+
+import Autocomplete from './components/Autocomplete';
 import Team from './components/team';
 import Player from './components/player';
 
@@ -11,47 +13,31 @@ class App extends React.Component {
     this.state = {
       team: '',
       player: '',
-      team: ''
+      allPlayers: ''
 
     };
 
   }
 
-  genericSync(event) {
-    console.log("what is event.target: ", event.target)
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
+  componentDidMount() {
 
-  onButtonClick(e) {
-
-    let playerName = this.state.player
-    console.log(playerName);
-
+    // Retrieve list of all players cin NBA history and save it in state
     axios({
       "method": "GET",
-      "url": "https://free-nba.p.rapidapi.com/players",
+      "url": "https://api-nba-v1.p.rapidapi.com/players/country/USA",
       "headers": {
         "content-type": "application/octet-stream",
-        "x-rapidapi-host": "free-nba.p.rapidapi.com",
+        "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
         "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
-      },
-      "params": {
-        "page": "0",
-        "per_page": "25",
-        "search": `${this.state.player} `,
-
       }
     })
       .then((response) => {
-        console.log(response.data.data[0]) // First Result from filtered return list
-        console.log(response.data.data[0].first_name) // first name of the first result from list
-        console.log(response.data.data[0].last_name)
 
+        // Should be array of ALl players in NBA history
+        console.log(response.data.api.players)
+        
         this.setState({
-          player: `${response.data.data[0].first_name} ${response.data.data[0].last_name}`,
-          team: `${response.data.data[0].team.city}`
-
+          allPlayers: response.data.api.players
         })
 
       })
@@ -61,10 +47,46 @@ class App extends React.Component {
 
   }
 
+
+
+
+
+
+
+  genericSync(event) {
+    // console.log("what is event.target: ", event.target)
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  onButtonClick(e) {
+
+    let playerName = this.state.player
+    console.log(playerName);
+
+
+    axios({
+      "method": "GET",
+      "url": `https://api-nba-v1.p.rapidapi.com/players/lastName/${playerName}`,
+      "headers": {
+        "content-type": "application/octet-stream",
+        "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+        "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
+      }
+    })
+      .then((response) => {
+        console.log('Resonse from NBA API', response)
+        console.log('Resonse from NBA API', response.data)
+        console.log('Resonse from NBA API', response.data.api)
+        console.log('Resonse from NBA API', response.data.api.players[0])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+  }
+
   render() {
-
-
-
 
     return (
       <div>
@@ -72,6 +94,11 @@ class App extends React.Component {
         {/* <Team team={this.state.team} /> */}
 
         {/* <Player player={this.state.player}/> */}
+
+        <Autocomplete
+          suggestions={['White', 'Black', 'Green', 'Blue', 'Yellow', 'Red']}
+        />
+
 
         <label> Type Player Name: </label>
         <input
