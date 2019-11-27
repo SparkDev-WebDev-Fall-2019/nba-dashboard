@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 
-import Autocomplete from './components/Autocomplete';
+import Autocomplete from './components/AutoCompInput';
 import Team from './components/team';
 import Player from './components/player';
 
@@ -19,39 +19,38 @@ class App extends React.Component {
 
   }
 
-  componentDidMount() {
 
-    // Retrieve list of all players cin NBA history and save it in state
-    axios({
-      "method": "GET",
-      "url": "https://api-nba-v1.p.rapidapi.com/players/country/USA",
-      "headers": {
-        "content-type": "application/octet-stream",
-        "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-        "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
-      }
-    })
-      .then((response) => {
+  // componentDidMount() {
 
-        // Should be array of ALl players in NBA history
-        console.log(response.data.api.players)
+  //   // Retrieve list of all players cin NBA history and save it in state
+  //   axios({
+  //     "method": "GET",
+  //     "url": "https://api-nba-v1.p.rapidapi.com/players/country/USA",
+  //     "headers": {
+  //       "content-type": "application/octet-stream",
+  //       "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+  //       "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
+  //     }
+  //   })
+  //     .then((response) => {
+
+  //       // Should be array of ALl players in NBA history
+  //       console.log(response.data.api.players)
+  //       console.log(typeof response.data.api.players); // Returns Object
         
-        this.setState({
-          allPlayers: response.data.api.players
-        })
+  //       let playersAsArray = Array.from(response.data.api.players) // Returns Object
+  //       console.log(Array.isArray(playersAsArray)); // Returns True
 
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  //       this.setState({
+  //         allPlayers: response.data.api.players
+  //       })
 
-  }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
 
-
-
-
-
-
+  // }
 
   genericSync(event) {
     // console.log("what is event.target: ", event.target)
@@ -63,26 +62,6 @@ class App extends React.Component {
 
     let playerName = this.state.player
     console.log(playerName);
-
-
-    axios({
-      "method": "GET",
-      "url": `https://api-nba-v1.p.rapidapi.com/players/lastName/${playerName}`,
-      "headers": {
-        "content-type": "application/octet-stream",
-        "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-        "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
-      }
-    })
-      .then((response) => {
-        console.log('Resonse from NBA API', response)
-        console.log('Resonse from NBA API', response.data)
-        console.log('Resonse from NBA API', response.data.api)
-        console.log('Resonse from NBA API', response.data.api.players[0])
-      })
-      .catch((error) => {
-        console.log(error)
-      })
 
   }
 
@@ -96,11 +75,11 @@ class App extends React.Component {
         {/* <Player player={this.state.player}/> */}
 
         <Autocomplete
-          suggestions={['White', 'Black', 'Green', 'Blue', 'Yellow', 'Red']}
+          Players={this.state.allPlayers}
         />
 
 
-        <label> Type Player Name: </label>
+        {/* <label> Type Player Name: </label>
         <input
           // value={this.state.player} // this.state.fullName
           onChange={event => this.genericSync(event)}
@@ -109,9 +88,9 @@ class App extends React.Component {
           placeholder="Michael Jordan"
         />
 
-        <button onClick={() => this.onButtonClick()} />
-        <Player player={this.state.player} />
-        <Team team={this.state.team} />
+        <button onClick={() => this.onButtonClick()} /> */}
+        {/* <Player player={this.state.player} />
+        <Team team={this.state.team} /> */}
 
 
       </div>
