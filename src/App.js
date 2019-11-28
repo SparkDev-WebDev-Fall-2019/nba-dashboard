@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
-
 import Autocomplete from './components/AutoCompInput';
-
+const nba = require('nba-api-client');
 // import Team from './components/team';
 // import Player from './components/player';
 
@@ -15,17 +14,21 @@ class App extends React.Component {
 
       allPlayers: '', // List of players from api
       searchedPlayersName: '', // Name of player input by user
-      currentPlayer: {}, // Currrent Player being used to get data 
-      playerTeam: ''
+      currentPlayer: {}, // Currrent Player Saved To get from data 
+      currentPlayerFullName: 'james harden',
+      playerTeam: '',
+      playerHeadshot: ''
 
     };
 
   }
 
+  // * Get User Input
   genericSync(event) {
 
     // TODO WHY isn't it event.target?
     // console.log("WHAT is event: ", event)
+
     let typedPlayerName = event;
     // console.log(`USER TYPED `, typedPlayerName);
 
@@ -33,18 +36,24 @@ class App extends React.Component {
 
   }
 
-  getSelectedPlayer(player, e) {
+  // * Recives a player object and saves it in state
+  getSelectedPlayer(playerName, e) {
 
-    console.log('SELECTED PLAYERS : ', player);
+    console.log('SELECTED PLAYER:', playerName);
+
+    this.setState({
+      currentPlayerFullName: playerName
+    })
 
     // Get Firts Name Of Player
-    let playerFirstName = (player.split(" ")[0]);
-    console.log('Player First Name: ', playerFirstName);
+    let playerFirstName = (playerName.split(" ")[0]);
+    console.log('Player First Name:', playerFirstName);
 
     // Get Last Name Of Player
-    let playerLastName = (player.split(" ")[1]);
+    let playerLastName = (playerName.split(" ")[1]);
     console.log('Player Last Name: ', playerLastName);
 
+    // First return list of all players with this first name
     axios({
       "method": "GET",
       "url": `https://api-nba-v1.p.rapidapi.com/players/firstName/${playerFirstName}`,
@@ -59,6 +68,7 @@ class App extends React.Component {
         console.log('PLAYERS WITH THIS FIRST NAME');
         console.log(playerList.data.api.players)
 
+        // * Then Get list of players with first name that also match provided last name
         console.log('ABOUT TO GET PLAYERS WITH THIS FIRST NAME AND LAST NAME');
         var result = playerList.data.api.players.filter(players => {
           return players.lastName === playerLastName;
@@ -66,7 +76,26 @@ class App extends React.Component {
         console.log('RESULT OF FINDING LAST NAME: ', result);
         console.log(`THE PLAYER WITH THIS FULL NAME `, result[0]);
 
-        // Now have a named variable for the player object so we can use it to get data
+        // TODO WHY IS IT GETTTING AN ERROR FROM PAYER ID BUT NOT HARD CODED
+        // // **********************************************************
+        // // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
+
+        // console.log('Name In State: ' +this.state.currentPlayerFullName + 'Name in local: ' + playerName);
+
+        // let { PlayerID, TeamID } = nba.getPlayerID('LaMarcus Aldridge');
+        // console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
+
+        // // Call to api requires player AND team id
+        // let pic = nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+
+        // console.log(pic);
+        // this.setState({
+        //   playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+        // })
+
+        // // **********************************************************
+
+        // * Save Player In state For Use
         this.setState({
           currentPlayer: result[0]
         })
@@ -75,6 +104,7 @@ class App extends React.Component {
         console.log(this.state.currentPlayer.dateOfBirth);
 
         this.getPlayerTeam(this.state.currentPlayer.teamId)
+        // this.getPlayerHeadshot(playerName)
 
 
       })
@@ -112,6 +142,26 @@ class App extends React.Component {
 
   }
 
+  // getPlayerTeam(teamID) {
+  // * Recives @playerName and returns link to their headshot image
+  // getPlayerHeadshot(playerName) {
+
+  //   console.log('Player Name in Headshot function:', this.state.currentPlayerFullName);
+
+  //   // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
+  //   let { PlayerID, TeamID } = nba.getPlayerID(playerName);
+  //   console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
+
+  //   // Call to api requires player AND team id
+  //   let pic = nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+
+  //   console.log(pic);
+  //   this.setState({
+  //     playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+  //   })
+
+  // }
+
   getPlayerStats(teamID) {
 
     // Using a provided players teamID, get their current team
@@ -142,9 +192,24 @@ class App extends React.Component {
 
   render() {
 
+    // // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
+    // let { PlayerID, TeamID } = nba.getPlayerID(this.state.currentPlayerFullName);
+    // console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
+
+    // // Call to api requires player AND team id
+    // let pic = nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+
+    // console.log(pic);
+    // this.setState({
+    //   playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+    // })
+
+
     return (
 
       <div>
+
+        <img src={this.state.playerHeadshot} alt='Player Pic' />
 
         <Autocomplete changePlayerNameInState={event => this.genericSync(event)} />
 
@@ -154,6 +219,8 @@ class App extends React.Component {
         >
           Click Me!
         </button>
+
+
 
         {/* <Team team={this.state.team} /> */}
 

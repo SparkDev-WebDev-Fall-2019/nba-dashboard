@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/lab": "^4.0.0-alpha.33",
+    "nba-api-client": "^1.0.7",
     "react": "^16.11.0",
     "react-autocomplete": "^1.8.1",
     "react-autocomplete-input": "^1.0.12",
