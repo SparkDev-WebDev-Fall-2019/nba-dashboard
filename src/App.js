@@ -43,7 +43,7 @@ class App extends React.Component {
   // * Recives a player object and saves it in state
   getSelectedPlayer(playerName, e) {
 
-    console.log('USER ENTERED PLAYER:', playerName);
+    console.log(`USER ENTERED PLAYER: ${playerName}`);
 
     this.setState({
       currentPlayerFullName: playerName
@@ -57,9 +57,19 @@ class App extends React.Component {
     let playerLastName = (playerName.split(" ")[1]);
     console.log('Player Last Name: ', playerLastName);
 
-    // * Call allows us to pass a 'this' value, so the function will be able to mutate state of 
-    //   this file, no matter where it is called from .  
+    // * .call allows us to pass a 'this' value, so the function will be able to mutate state of this file, no matter where it is called from .  
+
+    // @getPlayerByName Uses first and last name to find player and saves player in state
     getPlayerByName.call(this, playerFirstName, playerLastName);
+
+    // DESTRUCTURE TO GET PLAYER & TEAM ID FROM OBJECT RETURNED FROM API
+    let { PlayerID, TeamID } = nba.getPlayerID(playerName.trim());
+    console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
+
+    // Call to api requires player AND team id
+    this.setState({
+      playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+    })
 
   }
 
@@ -141,17 +151,17 @@ class App extends React.Component {
 
   render() {
 
-    // // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
-    // let { PlayerID, TeamID } = nba.getPlayerID(this.state.currentPlayerFullName);
+    // // // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
+    // let { PlayerID, TeamID } = nba.getPlayerID('James Harden');
     // console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
 
     // // Call to api requires player AND team id
     // let pic = nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
 
     // console.log(pic);
-    // this.setState({
-    //   playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-    // })
+    // // this.setState({
+    // //   playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+    // // })
 
 
     return (
@@ -159,6 +169,7 @@ class App extends React.Component {
       <div>
 
         <img src={this.state.playerHeadshot} alt='Player Pic' />
+        {/* <img src={pic} alt='Player Pic' /> */}
 
         <Autocomplete changePlayerNameInState={event => this.genericSync(event)} />
 
