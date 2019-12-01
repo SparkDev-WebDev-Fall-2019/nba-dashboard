@@ -1,15 +1,18 @@
+// Packages
 import React from 'react';
 import axios from 'axios';
+
+// Components
 import Autocomplete from './components/AutoCompInput';
+import Team from './components/team';
+// import Player from './components/player';
 
 import './App.css';
 
 import { getPlayerByName } from './API CALLLS/NBA.API'
+import { getPlayerTeam } from './API CALLLS/NBA.API'
 
 const nba = require('nba-api-client');
-// import Team from './components/team';
-// import Player from './components/player';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +22,8 @@ class App extends React.Component {
       allPlayers: '', // List of players from api
       searchedPlayersName: '', // Name of player input by user
       currentPlayer: {}, // Currrent Player Saved To get from data 
-      currentPlayerFullName: 'james harden',
+      currentPlayerFullName: '',
+      playerTeamID: '',
       playerTeam: '',
       playerHeadshot: ''
 
@@ -41,9 +45,9 @@ class App extends React.Component {
   }
 
   // * Recives a player object and saves it in state
-  getSelectedPlayer(playerName, e) {
+  async getSelectedPlayerInfo(playerName, e) {
 
-    console.log(`USER ENTERED PLAYER: ${playerName}`);
+    // console.log(`USER ENTERED PLAYER: ${playerName}`);
 
     this.setState({
       currentPlayerFullName: playerName
@@ -60,13 +64,23 @@ class App extends React.Component {
     // * .call allows us to pass a 'this' value, so the function will be able to mutate state of this file, no matter where it is called from .  
 
     // @getPlayerByName Uses first and last name to find player and saves player in state
-    getPlayerByName.call(this, playerFirstName, playerLastName);
+    await getPlayerByName.call(this, playerFirstName, playerLastName)
 
-    // DESTRUCTURE TO GET PLAYER & TEAM ID FROM OBJECT RETURNED FROM API
+    // With Player Saved In State, use his team ID to find his team
+    console.log(`THIS IS THE TEAM ID FRROM PLAYER IN STATE PROPERTY: `, this.state.currentPlayer.teamId);
+
+    await getPlayerTeam.call(this,this.state.currentPlayer.teamId)
+
+
+    // ***************************************************************************************
+    // USES A DIFFERENT PLAYER AND EAM ID TO GET THE PLAYER PICTURE, DON'T SAVE IN STATE
+
     let { PlayerID, TeamID } = nba.getPlayerID(playerName.trim());
-    console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
+    console.log(`ID'S for picture: PlayerID: ${PlayerID} TeamID: ${TeamID}`);
 
-    // Call to api requires player AND team id
+    // ***************************************************************************************
+
+    // Call to api requires player AND team id, then save image in state
     this.setState({
       playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
     })
@@ -75,51 +89,11 @@ class App extends React.Component {
 
   getPlayerTeam(teamID) {
 
-    // Using a provided players teamID, get their current team
-    axios({
-      "method": "GET",
-      "url": `https://api-nba-v1.p.rapidapi.com/teams/teamId/${teamID}`,
-      "headers": {
-        "content-type": "application/octet-stream",
-        "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-        "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
-      }
-    })
-      .then((response) => {
-
-        // Make sure it's data we want
-        console.log(response.data.api.teams[0].fullName)
-
-        this.setState({
-          playerTeam: response.data.api.teams[0].fullName
-        })
-
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    // Using a provided players teamID, get their current team and save to state
+    getPlayerTeam.call(this, teamID)
+    console.log(`PLAYER PLAYS FOR : ${this.state.playerTeam}`);
 
   }
-
-  // getPlayerTeam(teamID) {
-  // * Recives @playerName and returns link to their headshot image
-  // getPlayerHeadshot(playerName) {
-
-  //   console.log('Player Name in Headshot function:', this.state.currentPlayerFullName);
-
-  //   // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
-  //   let { PlayerID, TeamID } = nba.getPlayerID(playerName);
-  //   console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
-
-  //   // Call to api requires player AND team id
-  //   let pic = nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-
-  //   console.log(pic);
-  //   this.setState({
-  //     playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-  //   })
-
-  // }
 
   getPlayerStats(teamID) {
 
@@ -151,18 +125,6 @@ class App extends React.Component {
 
   render() {
 
-    // // // DESTRUCTURE TO GET PLAYER ID FROM OBJECT RETURNED FROM API
-    // let { PlayerID, TeamID } = nba.getPlayerID('James Harden');
-    // console.log(`PlayerID: ${PlayerID} TeamID: ${TeamID}`);
-
-    // // Call to api requires player AND team id
-    // let pic = nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-
-    // console.log(pic);
-    // // this.setState({
-    // //   playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-    // // })
-
 
     return (
 
@@ -174,15 +136,15 @@ class App extends React.Component {
         <Autocomplete changePlayerNameInState={event => this.genericSync(event)} />
 
         <button
-          // onClick={(e) => { this.getSelectedPlayer(e, this.state.playerName) }}
-          onClick={this.getSelectedPlayer.bind(this, this.state.searchedPlayersName)}
+          // onClick={(e) => { this.getSelectedPlayerInfo(e, this.state.playerName) }}
+          onClick={this.getSelectedPlayerInfo.bind(this, this.state.searchedPlayersName)}
         >
           Click Me!
         </button>
 
 
 
-        {/* <Team team={this.state.team} /> */}
+        <Team team={this.state.playerTeam} />
 
         {/* <Player player={this.state.player}/> */}
 
