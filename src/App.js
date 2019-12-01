@@ -57,8 +57,9 @@ class App extends React.Component {
     let playerLastName = (playerName.split(" ")[1]);
     console.log('Player Last Name: ', playerLastName);
 
-    // Funtion Returns Plaer with this First and Last Name
-    getPlayerByName(playerFirstName,playerLastName);    
+    // * Call allows us to pass a 'this' value, so the function will be able to mutate state of 
+    //   this file, no matter where it is called from .  
+    getPlayerByName.call(this, playerFirstName, playerLastName);
 
   }
 
