@@ -5,12 +5,13 @@ import axios from 'axios';
 // Components
 import Autocomplete from './components/AutoCompInput';
 import Team from './components/team';
-// import Player from './components/player';
+import Player from './components/player';
 
 import './App.css';
 
 import { getPlayerByName } from './API CALLLS/NBA.API'
 import { getPlayerTeam } from './API CALLLS/NBA.API'
+import { getPlayerStats } from './API CALLLS/NBA.API'
 
 const nba = require('nba-api-client');
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
       searchedPlayersName: '', // Name of player input by user
       currentPlayer: {}, // Currrent Player Saved To get from data 
       currentPlayerFullName: '',
+      playerPPG: 0,
       playerTeamID: '',
       playerTeam: '',
       playerHeadshot: ''
@@ -47,51 +49,38 @@ class App extends React.Component {
   // * Recives a player object and saves it in state
   async getSelectedPlayerInfo(playerName, e) {
 
-    // console.log(`USER ENTERED PLAYER: ${playerName}`);
+    // TODO look into using promise.all to mae sure all async tasks will be completed at same time (since i have many setstates)   
 
-    this.setState({
-      currentPlayerFullName: playerName
-    })
-
-    // Get Firts Name Of Player
     let playerFirstName = (playerName.split(" ")[0]);
     console.log('Player First Name:', playerFirstName);
 
-    // Get Last Name Of Player
     let playerLastName = (playerName.split(" ")[1]);
     console.log('Player Last Name: ', playerLastName);
 
     // * .call allows us to pass a 'this' value, so the function will be able to mutate state of this file, no matter where it is called from .  
+    await getPlayerByName.call(this, playerFirstName, playerLastName).then(res => { console.log('I AM FROM THEN IN ASYNC CALL FROM APP.JS');})
 
-    // @getPlayerByName Uses first and last name to find player and saves player in state
-    await getPlayerByName.call(this, playerFirstName, playerLastName)
+    await getPlayerStats.call(this, this.state.currentPlayer.playerId)
+
+    await getPlayerTeam.call(this, this.state.currentPlayer.teamId)
 
     // With Player Saved In State, use his team ID to find his team
     console.log(`THIS IS THE TEAM ID FRROM PLAYER IN STATE PROPERTY: `, this.state.currentPlayer.teamId);
 
-    await getPlayerTeam.call(this,this.state.currentPlayer.teamId)
-
-
     // ***************************************************************************************
-    // USES A DIFFERENT PLAYER AND EAM ID TO GET THE PLAYER PICTURE, DON'T SAVE IN STATE
+
+    // USES A DIFFERENT PLAYER AND TEAM ID TO GET THE PLAYER PICTURE, DON'T SAVE IN STATE
 
     let { PlayerID, TeamID } = nba.getPlayerID(playerName.trim());
     console.log(`ID'S for picture: PlayerID: ${PlayerID} TeamID: ${TeamID}`);
 
     // ***************************************************************************************
 
-    // Call to api requires player AND team id, then save image in state
     this.setState({
+      currentPlayerFullName: playerName,
       playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
     })
 
-  }
-
-  getPlayerTeam(teamID) {
-
-    // Using a provided players teamID, get their current team and save to state
-    getPlayerTeam.call(this, teamID)
-    console.log(`PLAYER PLAYS FOR : ${this.state.playerTeam}`);
 
   }
 
@@ -142,11 +131,9 @@ class App extends React.Component {
           Click Me!
         </button>
 
-
-
         <Team team={this.state.playerTeam} />
 
-        {/* <Player player={this.state.player}/> */}
+        <Player player={this.state.currentPlayerFullName} />
 
       </div>
 
