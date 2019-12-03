@@ -49,7 +49,8 @@ class App extends React.Component {
   // * Recives a player object and saves it in state
   async getSelectedPlayerInfo(playerName, e) {
 
-    // TODO look into using promise.all to mae sure all async tasks will be completed at same time (since i have many setstates)   
+    // To Hold Values and not have to repeatedly call state after calls
+    let currentPlayer, playerTeam;
 
     let playerFirstName = (playerName.split(" ")[0]);
     console.log('Player First Name:', playerFirstName);
@@ -57,15 +58,14 @@ class App extends React.Component {
     let playerLastName = (playerName.split(" ")[1]);
     console.log('Player Last Name: ', playerLastName);
 
-    // * .call allows us to pass a 'this' value, so the function will be able to mutate state of this file, no matter where it is called from .  
-    await getPlayerByName.call(this, playerFirstName, playerLastName).then(res => { console.log('I AM FROM THEN IN ASYNC CALL FROM APP.JS');})
+    // * .call allows you to pass a 'this' value, so the function will be able to mutate state of this file, no matter where it is called from .  
+    await getPlayerByName.call(this, playerFirstName, playerLastName)
+      .then(foundPlayer => {
 
-    await getPlayerStats.call(this, this.state.currentPlayer.playerId)
+        console.log('I AM RETURNED FROM GETPLAYER', foundPlayer);
+        currentPlayer = foundPlayer
 
-    await getPlayerTeam.call(this, this.state.currentPlayer.teamId)
-
-    // With Player Saved In State, use his team ID to find his team
-    console.log(`THIS IS THE TEAM ID FRROM PLAYER IN STATE PROPERTY: `, this.state.currentPlayer.teamId);
+      })
 
     // ***************************************************************************************
 
@@ -77,10 +77,29 @@ class App extends React.Component {
     // ***************************************************************************************
 
     this.setState({
-      currentPlayerFullName: playerName,
-      playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-    })
+      currentPlayer: currentPlayer,
+    },
+      () => {
 
+        getPlayerTeam.call(this, this.state.currentPlayer.teamId)
+          .then(foundTeam => {
+
+            playerTeam = foundTeam
+
+            this.setState({
+              currentPlayerFullName: playerName,
+              playerTeam: playerTeam,
+              playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
+            })
+
+          })
+
+      });
+
+    // With Player Saved In State, use his team ID to find his team
+    console.log(`THIS IS THE TEAM ID FRROM PLAYER IN STATE PROPERTY: `, this.state.currentPlayer.teamId);
+
+    await getPlayerStats.call(this, this.state.currentPlayer.playerId)
 
   }
 
