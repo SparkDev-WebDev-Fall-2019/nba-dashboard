@@ -8,7 +8,7 @@ class Team extends React.Component {
 
             <div>
 
-                <h1> Team is : { this.props.team }</h1>
+                <h1> Team is : { this.props.Team }</h1>
 
             </div>
 

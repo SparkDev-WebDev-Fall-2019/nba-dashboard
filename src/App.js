@@ -1,11 +1,12 @@
 // Packages
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 // Components
 import Autocomplete from './components/AutoCompInput';
-import Team from './components/team';
-import Player from './components/player';
+import Team from './components/Team';
+import Player from './components/Player';
+import Statbox from './components/Statbox';
 
 import './App.css';
 
@@ -20,14 +21,15 @@ class App extends React.Component {
 
     this.state = {
 
-      allPlayers: '', // List of players from api
       searchedPlayersName: '', // Name of player input by user
       currentPlayer: {}, // Currrent Player Saved To get from data 
       currentPlayerFullName: '',
-      playerPPG: 0,
       playerTeamID: '',
       playerTeam: '',
-      playerHeadshot: ''
+      playerHeadshot: '',
+      playerPPG: 0,
+      playerRPG: 0,
+      playerAPG: 0,
 
     };
 
@@ -46,11 +48,10 @@ class App extends React.Component {
 
   }
 
-  // * Recives a player object and saves it in state
   async getSelectedPlayerInfo(playerName, e) {
 
-    // To Hold Values and not have to repeatedly call state after calls
-    let currentPlayer, playerTeam;
+    // To Hold Values and not have to repeatedly call state after to reference data
+    let stateObject = {};
 
     let playerFirstName = (playerName.split(" ")[0]);
     console.log('Player First Name:', playerFirstName);
@@ -58,13 +59,14 @@ class App extends React.Component {
     let playerLastName = (playerName.split(" ")[1]);
     console.log('Player Last Name: ', playerLastName);
 
+    stateObject.currentPlayerFullName = playerName
+
     // * .call allows you to pass a 'this' value, so the function will be able to mutate state of this file, no matter where it is called from .  
     await getPlayerByName.call(this, playerFirstName, playerLastName)
       .then(foundPlayer => {
 
         console.log('I AM RETURNED FROM GETPLAYER', foundPlayer);
-        currentPlayer = foundPlayer
-
+        stateObject.currentPlayer = foundPlayer
       })
 
     // ***************************************************************************************
@@ -72,62 +74,45 @@ class App extends React.Component {
     // USES A DIFFERENT PLAYER AND TEAM ID TO GET THE PLAYER PICTURE, DON'T SAVE IN STATE
 
     let { PlayerID, TeamID } = nba.getPlayerID(playerName.trim());
-    console.log(`ID'S for picture: PlayerID: ${PlayerID} TeamID: ${TeamID}`);
+    stateObject.playerHeadshot = nba.getPlayerHeadshotURL({
+      PlayerID: PlayerID, TeamID: TeamID
+    })
 
     // ***************************************************************************************
 
-    this.setState({
-      currentPlayer: currentPlayer,
-    },
-      () => {
+    getPlayerTeam.call(this, stateObject.currentPlayer.teamId)
+      .then(foundTeam => {
 
-        getPlayerTeam.call(this, this.state.currentPlayer.teamId)
-          .then(foundTeam => {
+        stateObject.playerTeam = foundTeam
 
-            playerTeam = foundTeam
+        console.log(`THE PLAYERS TEAM`, foundTeam);
 
-            this.setState({
-              currentPlayerFullName: playerName,
-              playerTeam: playerTeam,
-              playerHeadshot: nba.getPlayerHeadshotURL({ PlayerID: PlayerID, TeamID: TeamID })
-            })
-
-          })
-
-      });
-
-    // With Player Saved In State, use his team ID to find his team
-    console.log(`THIS IS THE TEAM ID FRROM PLAYER IN STATE PROPERTY: `, this.state.currentPlayer.teamId);
-
-    await getPlayerStats.call(this, this.state.currentPlayer.playerId)
-
-  }
-
-  getPlayerStats(teamID) {
-
-    // Using a provided players teamID, get their current team
-    axios({
-      "method": "GET",
-      "url": `https://api-nba-v1.p.rapidapi.com/teams/teamId/${teamID}`,
-      "headers": {
-        "content-type": "application/octet-stream",
-        "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-        "x-rapidapi-key": "4cec6170bcmsh5d6a0ea78315a5ep10f15cjsn59ef0231e8e4"
-      }
-    })
-      .then((response) => {
-
-        // Make sure it's data we want
-        console.log(response.data.api.teams[0].fullName)
-
-        this.setState({
-          playerTeam: response.data.api.teams[0].fullName
-        })
+        console.log(this.state);
 
       })
-      .catch((error) => {
-        console.log(error)
+
+    await getPlayerStats.call(this, stateObject.currentPlayer.playerId)
+      .then(lastTenGames => {
+
+        console.log(lastTenGames);
+        let pointsSum = 0;
+        let reboundsSum = 0;
+        let assistsSum = 0;
+
+        lastTenGames.forEach(game => {
+          pointsSum += Number(game.points)
+          reboundsSum += Number(game.defReb) + Number(game.offReb)
+          assistsSum += Number(game.assists)
+        });
+
+        stateObject.playerPPG = pointsSum / lastTenGames.length
+        stateObject.playerRPG = reboundsSum / lastTenGames.length
+        stateObject.playerAPG = assistsSum / lastTenGames.length
+
       })
+
+
+    this.setState(stateObject)
 
   }
 
@@ -139,7 +124,6 @@ class App extends React.Component {
       <div>
 
         <img src={this.state.playerHeadshot} alt='Player Pic' />
-        {/* <img src={pic} alt='Player Pic' /> */}
 
         <Autocomplete changePlayerNameInState={event => this.genericSync(event)} />
 
@@ -150,9 +134,15 @@ class App extends React.Component {
           Click Me!
         </button>
 
-        <Team team={this.state.playerTeam} />
+        <Team Team={this.state.playerTeam} />
 
-        <Player player={this.state.currentPlayerFullName} />
+        <Player Player={this.state.currentPlayerFullName} />
+
+        <Statbox
+          PPG={this.state.playerPPG}
+          RPG={this.state.playerRPG}
+          APG={this.state.playerAPG}
+        />
 
       </div>
 
