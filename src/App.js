@@ -1,12 +1,21 @@
+/* TODO
+1. Input validation
+2. Why Is chart Not showing up?
+3. After Calls are set, decide on layout
+4. May store team images somehwere instead of using player headshots?
+*/
+
 // Packages
 import React from 'react';
-// import axios from 'axios';
+
 
 // Components
 import Autocomplete from './components/AutoCompInput';
 import Team from './components/Team';
 import Player from './components/Player';
 import Statbox from './components/Statbox';
+import AreaChart from './components/AreaChart';
+
 
 import './App.css';
 
@@ -32,6 +41,8 @@ class App extends React.Component {
       playerAPG: 0,
 
     };
+
+
 
   }
 
@@ -118,7 +129,7 @@ class App extends React.Component {
 
   render() {
 
-
+    
     return (
 
       <div>
@@ -143,6 +154,9 @@ class App extends React.Component {
           RPG={this.state.playerRPG}
           APG={this.state.playerAPG}
         />
+
+      {/* TODO WHY IS IT NOT SHOWING */}
+        <AreaChart/>
 
       </div>
 
