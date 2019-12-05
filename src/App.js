@@ -3,6 +3,10 @@
 2. Why Is chart Not showing up?
 3. After Calls are set, decide on layout
 4. May store team images somehwere instead of using player headshots?
+5. Add Logic to deal with missed games so players don't have 0's
+6.Conditionally Render chart
+7.Change Auto Complete too the suggestion instead of just adding suggestion
+
 */
 
 // Packages
@@ -14,7 +18,7 @@ import Autocomplete from './components/AutoCompInput';
 import Team from './components/Team';
 import Player from './components/Player';
 import Statbox from './components/Statbox';
-import AreaChart from './components/AreaChart';
+import LineChart from './components/LineChart';
 
 
 import './App.css';
@@ -37,6 +41,7 @@ class App extends React.Component {
       playerTeam: '',
       playerHeadshot: '',
       playerPPG: 0,
+      playerPPGArray: [],
       playerRPG: 0,
       playerAPG: 0,
 
@@ -107,17 +112,28 @@ class App extends React.Component {
 
         console.log(lastTenGames);
         let pointsSum = 0;
+        let pointsArray = [];
+
         let reboundsSum = 0;
         let assistsSum = 0;
 
         lastTenGames.forEach(game => {
           pointsSum += Number(game.points)
+          pointsArray.push(Number(game.points))
+
           reboundsSum += Number(game.defReb) + Number(game.offReb)
+
+
           assistsSum += Number(game.assists)
+
         });
 
         stateObject.playerPPG = pointsSum / lastTenGames.length
+        stateObject.playerPPGArray = pointsArray
+
         stateObject.playerRPG = reboundsSum / lastTenGames.length
+
+
         stateObject.playerAPG = assistsSum / lastTenGames.length
 
       })
@@ -129,7 +145,7 @@ class App extends React.Component {
 
   render() {
 
-    
+
     return (
 
       <div>
@@ -155,8 +171,8 @@ class App extends React.Component {
           APG={this.state.playerAPG}
         />
 
-      {/* TODO WHY IS IT NOT SHOWING */}
-        <AreaChart/>
+
+        <LineChart LastTenGames={this.state.playerPPGArray} />
 
       </div>
 
