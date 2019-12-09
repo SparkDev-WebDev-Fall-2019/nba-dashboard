@@ -10,6 +10,7 @@ TODO
 7.Change Auto Complete too the suggestion instead of just adding suggestion
 8. Inform user that if not ten ga,es shown, they sat out those games
 9. MPg for averages keeps sayin NaN
+10. If elses are not working as expected in app.js and statbox averages
 
 */
 import React from 'react';
@@ -20,6 +21,8 @@ import Autocomplete from './components/AutoCompInput';
 
 import Team from './components/Team';
 import Player from './components/Player';
+import PlayerInfo from './components/PlayerInfo';
+
 import StatboxAverages from './components/statbox/StatboxAverages';
 import LineChart from './components/LineChart';
 
@@ -154,8 +157,8 @@ class App extends React.Component {
 
         res.forEach(game => {
 
-          console.log(game);
-          if (game.min === "" || game.min === Number("")) {
+          // console.log(game);
+          if (game.min === "" || game.min.length === 0) {
             console.log("Did not play this game");
             console.log(game.min);
 
@@ -191,14 +194,12 @@ class App extends React.Component {
 
             fTMSum += Number(game.ftm)
             lastTenGamesAverages.ftMArray.push(Number(game.ftm))
-            
+
             // minutesSum += Number(game.min)
             // lastTenGamesAverages.minutesArray.push(Number(game.min))
 
 
           }
-
-
 
         });
 
@@ -211,11 +212,11 @@ class App extends React.Component {
 
         lastTenGamesAverages.playerFGAPG = fgASum / res.length
         lastTenGamesAverages.playerFGMPG = fgMSum / res.length
-        lastTenGamesAverages.FGPercent =   fgMSum / fgASum
+        lastTenGamesAverages.FGPercent = (fgMSum / fgASum).toFixed(2)
 
         lastTenGamesAverages.playerFTAPG = fTASum / res.length
         lastTenGamesAverages.playerFTAMPG = fTMSum / res.length
-        lastTenGamesAverages.FTPercent =   fTMSum / fTASum
+        lastTenGamesAverages.FTPercent = (fTMSum / fTASum).toFixed(2)
 
         // lastTenGamesAverages.playerMPG = minutesSum / res.length
 
@@ -231,7 +232,7 @@ class App extends React.Component {
 
   render() {
 
-    let lastTenGames = this.state.lastTenGames
+
 
     return (
 
@@ -247,15 +248,20 @@ class App extends React.Component {
           Click Me!
         </button>
 
+        <PlayerInfo
+          PlayerName={this.state.currentPlayerFullName}
+          {...this.state.currentPlayer}
+        />
+
+
         <Team Team={this.state.playerTeam} />
 
-        <Player Player={this.state.currentPlayerFullName} />
+        <Player
+          Player={this.state.currentPlayerFullName}
+          />
 
         <StatboxAverages
-          // Averages= {lastTenGames}
-          PPG={this.state.lastTenGamesAverages.playerPPG}
-          RPG={this.state.lastTenGamesAverages.playerRPG}
-          APG={this.state.lastTenGamesAverages.playerAPG}
+          {...this.state.lastTenGamesAverages}
 
         />
 
