@@ -250,6 +250,7 @@ class App extends React.Component {
 
         <PlayerInfo
           PlayerName={this.state.currentPlayerFullName}
+          PlayerTeam={this.state.playerTeam}
           {...this.state.currentPlayer}
         />
 
