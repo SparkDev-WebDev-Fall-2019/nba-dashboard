@@ -18,14 +18,12 @@ import React from 'react';
 // Components
 import Autocomplete from './components/AutoCompInput';
 
-
-import Team from './components/Team';
-import Player from './components/Player';
 import PlayerInfo from './components/PlayerInfo';
 
 import StatboxAverages from './components/statbox/StatboxAverages';
 import LineChart from './components/LineChart';
-
+import SelectBox from './components/SelectBox';
+import ReactSelect from 'react-select';
 import './App.css';
 
 import { getPlayerByName } from './API CALLLS/NBA.API'
@@ -52,6 +50,8 @@ class App extends React.Component {
       playerPPGArray: [],
       playerRPG: 0,
       playerAPG: 0,
+      selectedOption: { value: 'PPG', label: 'PPG' },
+      statForChart: '',
       lastTenGamesAverages: {}
 
     };
@@ -70,6 +70,20 @@ class App extends React.Component {
     this.setState({ searchedPlayersName: typedPlayerName });
 
   }
+
+  // * Get User Input
+  changeStatForChart(change) {
+
+    console.log(change);
+
+    this.setState({ statForChart: change });
+
+  }
+
+  handleChange = selectedOption => {
+    this.setState({ selectedOption: selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  };
 
   async getSelectedPlayerInfo(playerName, e) {
 
@@ -107,11 +121,6 @@ class App extends React.Component {
       .then(foundTeam => {
 
         stateObject.playerTeam = foundTeam
-
-        // console.log(`THE PLAYERS TEAM`, foundTeam);
-
-        // console.log(this.state);
-        // console.log(this.stateObject);
 
       })
 
@@ -232,7 +241,13 @@ class App extends React.Component {
 
   render() {
 
+    const options = [
+      { value: 'PPG', label: 'PPG' },
+      { value: 'RPG', label: 'RPG' },
+      { value: 'APG', label: 'APG' },
+    ];
 
+    const { selectedOption } = this.state;
 
     return (
 
@@ -254,20 +269,23 @@ class App extends React.Component {
           {...this.state.currentPlayer}
         />
 
-
-        <Team Team={this.state.playerTeam} />
-
-        <Player
-          Player={this.state.currentPlayerFullName}
-          />
-
+        {/* <h1>'18 - '19 SEASON AVERAGES</h1> */}
         <StatboxAverages
           {...this.state.lastTenGamesAverages}
 
         />
 
-        {/* LastTenGames Is object containing selected players stats */}
-        <LineChart LastTenGames={this.state.lastTenGamesAverages} />
+        <ReactSelect
+          value={selectedOption}
+          onChange={this.handleChange}
+          options={options}
+        />
+
+        <LineChart
+          {...this.state.selectedOption}
+          LastTenGames={this.state.lastTenGamesAverages}
+
+        />
 
       </div>
 
