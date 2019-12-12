@@ -11,28 +11,25 @@ TODO
 8. Inform user that if not ten ga,es shown, they sat out those games
 9. MPg for averages keeps sayin NaN
 10. If elses are not working as expected in app.js and statbox averages
+11.Add Player list (player objects) for options of select
 
 */
 import React from 'react';
 
 // Components
-import Autocomplete from './components/AutoCompInput';
-
 import PlayerInfo from './components/PlayerInfo';
 
 import StatboxAverages from './components/statbox/StatboxAverages';
 import LineChart from './components/LineChart';
-import SelectBox from './components/SelectBox';
 import ReactSelect from 'react-select';
 import './App.css';
 
 import { getPlayerByName } from './API CALLLS/NBA.API'
 import { getPlayerTeam } from './API CALLLS/NBA.API'
 import { getPlayerStats } from './API CALLLS/NBA.API'
+import { getAllNBAPlayers } from './API CALLLS/NBA.API'
 
 const nba = require('nba-api-client');
-
-// let SimpleSelect = require("react-selectize").SimpleSelect
 
 class App extends React.Component {
   constructor(props) {
@@ -40,21 +37,39 @@ class App extends React.Component {
 
     this.state = {
 
+      allPlayers: [],
       searchedPlayersName: '', // Name of player input by user
       currentPlayer: {}, // Currrent Player Saved To get from data 
       currentPlayerFullName: '',
       playerTeamID: '',
       playerTeam: '',
       playerHeadshot: '',
-      playerPPG: 0,
-      playerPPGArray: [],
-      playerRPG: 0,
-      playerAPG: 0,
-      selectedOption: { value: 'PPG', label: 'PPG' },
-      statForChart: '',
+      selectedOption: { value: '-', label: 'Type Player Name Here' },
       lastTenGamesAverages: {}
 
     };
+
+  }
+
+  componentDidMount() {
+
+    // Retreives list of all players and sets it in state for use in auto complete
+    getAllNBAPlayers.call(this)
+      .then(listOfPlayers => {
+
+        var formattedListForSelect = listOfPlayers.map(function (player) {
+          return {
+            value: player,
+            label: player
+          }
+        });
+        this.setState({
+          allPlayers: formattedListForSelect
+        })
+
+        console.log('THE LIST :', this.state.allPlayers);
+
+      })
 
   }
 
@@ -70,20 +85,6 @@ class App extends React.Component {
     this.setState({ searchedPlayersName: typedPlayerName });
 
   }
-
-  // * Get User Input
-  changeStatForChart(change) {
-
-    console.log(change);
-
-    this.setState({ statForChart: change });
-
-  }
-
-  handleChange = selectedOption => {
-    this.setState({ selectedOption: selectedOption });
-    console.log(`Option selected:`, selectedOption);
-  };
 
   async getSelectedPlayerInfo(playerName, e) {
 
@@ -160,7 +161,7 @@ class App extends React.Component {
         let fTMSum = 0;
         lastTenGamesAverages.ftMArray = []
 
-        let minutesSum = 0;
+        // let minutesSum = 0;
         lastTenGamesAverages.minutesArray = []
 
 
@@ -239,57 +240,65 @@ class App extends React.Component {
 
   }
 
+  handleChange = selectedOption => {
+    this.setState({
+
+      selectedOption: selectedOption,
+      searchedPlayersName: selectedOption.value
+
+    });
+    console.log(`Option selected:`, selectedOption);
+  };
+
   render() {
 
-    const options = [
-      { value: 'PPG', label: 'PPG' },
-      { value: 'RPG', label: 'RPG' },
-      { value: 'APG', label: 'APG' },
-    ];
+    if (!this.state.allPlayers) {
+      return (<div></div>)
+    } else {
 
-    const { selectedOption } = this.state;
+      const { selectedOption } = this.state;
 
-    return (
+      return (
 
-      <div>
+        <div>
 
-        <img src={this.state.playerHeadshot} alt='Player Pic' />
+          <img src={this.state.playerHeadshot} alt='Player Pic' />
 
-        <Autocomplete changePlayerNameInState={event => this.genericSync(event)} />
+          <ReactSelect
+            value={selectedOption}
+            onChange={this.handleChange}
+            options={this.state.allPlayers}
+          />
 
-        <button
-          onClick={this.getSelectedPlayerInfo.bind(this, this.state.searchedPlayersName)}
-        >
-          Click Me!
+          <button
+            onClick={this.getSelectedPlayerInfo.bind(this, this.state.searchedPlayersName)}
+          >
+            Click Me!
         </button>
 
-        <PlayerInfo
-          PlayerName={this.state.currentPlayerFullName}
-          PlayerTeam={this.state.playerTeam}
-          {...this.state.currentPlayer}
-        />
+          <PlayerInfo
+            PlayerName={this.state.currentPlayerFullName}
+            PlayerTeam={this.state.playerTeam}
+            {...this.state.currentPlayer}
+          />
 
-        {/* <h1>'18 - '19 SEASON AVERAGES</h1> */}
-        <StatboxAverages
-          {...this.state.lastTenGamesAverages}
+          {/* <h1>'18 - '19 SEASON AVERAGES</h1> */}
+          <StatboxAverages
+            {...this.state.lastTenGamesAverages}
 
-        />
+          />
 
-        <ReactSelect
-          value={selectedOption}
-          onChange={this.handleChange}
-          options={options}
-        />
+          <LineChart
+            {...this.state.selectedOption}
+            LastTenGames={this.state.lastTenGamesAverages}
 
-        <LineChart
-          {...this.state.selectedOption}
-          LastTenGames={this.state.lastTenGamesAverages}
+          />
 
-        />
+        </div>
 
-      </div>
+      );
+    }
 
-    );
 
   }
 }
