@@ -19,9 +19,10 @@ import React from 'react';
 // Components
 import PlayerInfo from './components/PlayerInfo';
 
-import StatboxAverages from './components/statbox/StatboxAverages';
-import LineChart from './components/LineChart';
 import ReactSelect from 'react-select';
+import LineChart from './components/LineChart';
+import StatboxAverages from './components/statbox/StatboxAverages';
+import LastTenGames from './components/LastTenGames/LastTenGames';
 import './App.css';
 
 import { getPlayerByName } from './API CALLLS/NBA.API'
@@ -161,6 +162,8 @@ class App extends React.Component {
         let fTMSum = 0;
         lastTenGamesAverages.ftMArray = []
 
+        lastTenGamesAverages.games = []
+
         // let minutesSum = 0;
         lastTenGamesAverages.minutesArray = []
 
@@ -204,6 +207,9 @@ class App extends React.Component {
 
             fTMSum += Number(game.ftm)
             lastTenGamesAverages.ftMArray.push(Number(game.ftm))
+
+            // Saves indivual players stats of each game , used in LastTenGames component
+            lastTenGamesAverages.games.push(game)
 
             // minutesSum += Number(game.min)
             // lastTenGamesAverages.minutesArray.push(Number(game.min))
@@ -292,6 +298,10 @@ class App extends React.Component {
             {...this.state.selectedOption}
             LastTenGames={this.state.lastTenGamesAverages}
 
+          />
+
+          <LastTenGames 
+             {...this.state.lastTenGamesAverages}
           />
 
         </div>
