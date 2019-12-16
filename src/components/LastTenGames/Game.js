@@ -11,44 +11,51 @@ class Game extends Component {
             display: 'flex',
             flexWrap: 'noWrap',
             justifyContent: 'space-around',
-            // width: '60%',
-            margin: '0 auto',
+            padding: '0 15px',
             border: '1px solid Green'
+        };
+
+        const boxStat = {
+            width: '1px',
+            // margin:'0 15px',
+            // overflow: 'hidden',
+            border: '1px solid purple'
         };
 
         // TODO If the props aren't loaded yet, don't display anything
         if (!this.props.blocks) {
-            return (<div> Not GAME loaded yet</div>)
+            return (<div> DNP</div>)
         }
         else {
 
             console.log('AVAILABLE PLAYER STATS IN GAMES COMPONENT', this.props);
 
             return (
-                <div>
+                
 
                     <div style={boxScore}>
 
-                        <div> {this.props.min} </div>
-                        <div> {this.props.fgm} </div>
-                        <div> {this.props.fga} </div>
-                        <div> {this.props.fgp} </div>
-                        <div> {this.props.ftm} </div>
-                        <div> {this.props.fta} </div>
-                        <div> {this.props.ftp} </div>
-                        <div> {this.props.offReb} </div>
-                        <div> {this.props.defReb} </div>
-                        <div> {this.props.totReb} </div>
-                        <div> {this.props.assists} </div>
-                        <div> {this.props.steals} </div>
-                        <div> {this.props.blocks} </div>
-                        <div> {this.props.turnovers} </div>
-                        <div> {this.props.pFouls} </div>
-                        <div> {this.props.points} </div>
+                        {/* TODO Get Date or team played against */}
+
+                        <div style={boxStat}> {this.props.min} </div>
+                        <div style={boxStat}> {this.props.fgm} </div>
+                        <div style={boxStat}> {this.props.fga} </div>
+                        <div style={boxStat}> {this.props.fgp} </div>
+                        <div style={boxStat}> {this.props.ftm} </div>
+                        <div style={boxStat}> {this.props.fta} </div>
+                        <div style={boxStat}> {this.props.ftp} </div>
+                        <div style={boxStat}> {this.props.offReb} </div>
+                        <div style={boxStat}> {this.props.defReb} </div>
+                        <div style={boxStat}> {this.props.totReb} </div>
+                        <div style={boxStat}> {this.props.assists} </div>
+                        <div style={boxStat}> {this.props.steals} </div>
+                        <div style={boxStat}> {this.props.blocks} </div>
+                        <div style={boxStat}> {this.props.turnovers} </div>
+                        <div style={boxStat}> {this.props.pFouls} </div>
+                        <div style={boxStat}> {this.props.points} </div>
 
                     </div>
 
-                </div>
             );
 
         }

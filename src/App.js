@@ -173,7 +173,7 @@ class App extends React.Component {
           // console.log(game);
           if (game.min === "" || game.min.length === 0) {
             console.log("Did not play this game");
-            console.log(game.min);
+            console.log(game);
 
           }
           else {
@@ -266,7 +266,7 @@ class App extends React.Component {
 
       return (
 
-        <div>
+        <div className="body">
 
           <img src={this.state.playerHeadshot} alt='Player Pic' />
 
