@@ -7,11 +7,23 @@ class Statbox extends Component {
     }
     render() {
 
+        const seasonAveragesContainer = {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: '1 1 auto', /* Positive flex-shrink */
+            color: 'blue',
+            // border: '1px solid green'
+        };
+
         const boxScore = {
             display: 'flex',
-            flexWrap: 'noWrap',
-            width: '60%',
-            margin: '0 auto',
+            // flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            // flex: '1 1 auto', /* Positive flex-shrink */
+            // color: 'blue',
             border: '1px solid blue'
         };
 
@@ -24,9 +36,11 @@ class Statbox extends Component {
             console.log('AVAILABLE PLAYER AVERAGES IN SB AVGS', this.props);
 
             return (
-                <div>
 
-                    <h1> '18 - '19 SEASON AVERAGES </h1>
+                <div style={seasonAveragesContainer}>
+
+                    <h1 style={{ color: '#eceff1' }}> '18 - '19 SEASON AVERAGES </h1>
+
                     <div style={boxScore}>
 
                         <Averages Stat={"PPG"} Average={this.props.playerPPG} />

@@ -19,7 +19,7 @@ class Game extends Component {
             width: '1px',
             // margin:'0 15px',
             // overflow: 'hidden',
-            border: '1px solid purple'
+            // border: '1px solid purple'
         };
 
         // TODO If the props aren't loaded yet, don't display anything
@@ -28,7 +28,7 @@ class Game extends Component {
         }
         else {
 
-            console.log('AVAILABLE PLAYER STATS IN GAMES COMPONENT', this.props);
+            // console.log('AVAILABLE PLAYER STATS IN GAMES COMPONENT', this.props);
 
             return (
                 

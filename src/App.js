@@ -258,6 +258,19 @@ class App extends React.Component {
 
   render() {
 
+    const customStyles = {
+
+      control: styles => ({ ...styles, backgroundColor: 'rgb(44,44,44)' }),
+
+      menuList: () => ({
+        // none of react-select's styles are passed to <Control />
+        color: 'white',
+        backgroundColor: 'rgb(66,66,66)'
+      }),
+
+
+    }
+
     if (!this.state.allPlayers) {
       return (<div></div>)
     } else {
@@ -271,6 +284,7 @@ class App extends React.Component {
           <img src={this.state.playerHeadshot} alt='Player Pic' />
 
           <ReactSelect
+            styles={customStyles}
             value={selectedOption}
             onChange={this.handleChange}
             options={this.state.allPlayers}
@@ -288,7 +302,7 @@ class App extends React.Component {
             {...this.state.currentPlayer}
           />
 
-          {/* <h1>'18 - '19 SEASON AVERAGES</h1> */}
+
           <StatboxAverages
             {...this.state.lastTenGamesAverages}
 
@@ -300,8 +314,8 @@ class App extends React.Component {
 
           />
 
-          <LastTenGames 
-             {...this.state.lastTenGamesAverages}
+          <LastTenGames
+            {...this.state.lastTenGamesAverages}
           />
 
         </div>

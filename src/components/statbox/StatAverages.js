@@ -12,7 +12,7 @@ class Stat extends Component {
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
             padding: '12px',
-            color: 'blue',
+            color: 'rgb(236,239,241)',
             border: '1px solid brown'
         };
 
