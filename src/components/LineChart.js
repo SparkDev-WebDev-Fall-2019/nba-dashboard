@@ -304,38 +304,40 @@ export default class Linechart extends PureComponent {
         }
     }
 
-    statToolTip(param) {
-        switch (param) {
+    
 
-            case 'PPG':
-                return 'Points'
+    // statToolTip(param) {
+    //     switch (param) {
 
-            case 'RPG':
-                return 'Rebounds'
+    //         case 'PPG':
+    //             return 'Points'
 
-            case 'APG':
-                return 'Assists'
+    //         case 'RPG':
+    //             return 'Rebounds'
 
-            case 'SPG':
-                return 'Assists'
+    //         case 'APG':
+    //             return 'Assists'
 
-            case 'BPG':
-                return 'Assists'
+    //         case 'SPG':
+    //             return 'Assists'
 
-            case 'TOPG':
-                return 'Assists'
+    //         case 'BPG':
+    //             return 'Assists'
 
-            case 'FGAPG':
-                return 'Assists'
+    //         case 'TOPG':
+    //             return 'Assists'
 
-            case 'FGMPG':
-                return 'Assists'
+    //         case 'FGAPG':
+    //             return 'Assists'
 
-            default:
-                return 'foo';
+    //         case 'FGMPG':
+    //             return 'Assists'
 
-        }
-    }
+    //         default:
+    //             return 'foo';
+
+    //     }
+    // }
 
     handleChange = selectedOption => {
         this.setState({ selectedOption: selectedOption });
@@ -382,6 +384,8 @@ export default class Linechart extends PureComponent {
         ];
 
         const { selectedOption } = this.state;
+
+        
 
         // TODO If the props aren't loaded yet, don't display anything
         if (!this.props.LastTenGames.pointsArray) {

@@ -112,10 +112,10 @@ class App extends React.Component {
 
     // USES A DIFFERENT PLAYER AND TEAM ID TO GET THE PLAYER PICTURE, DON'T SAVE IN STATE
 
-    let { PlayerID, TeamID } = nba.getPlayerID(playerName.trim());
-    stateObject.playerHeadshot = nba.getPlayerHeadshotURL({
-      PlayerID: PlayerID, TeamID: TeamID
-    })
+    // let { PlayerID, TeamID } = nba.getPlayerID(playerName.trim());
+    // stateObject.playerHeadshot = nba.getPlayerHeadshotURL({
+    //   PlayerID: PlayerID, TeamID: TeamID
+    // })
 
     // ***************************************************************************************
 
