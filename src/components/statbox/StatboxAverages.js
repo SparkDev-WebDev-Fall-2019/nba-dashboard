@@ -12,7 +12,7 @@ class Statbox extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
-            width:'60%',
+            width: '60%',
             margin: '0 auto',
             border: '1px solid yellow'
         };
@@ -54,8 +54,7 @@ class Statbox extends Component {
 
             return (
 
-                // <div style={container}>
-                <div>
+                <div style={container}>
 
                     <div style={seasonAveragesContainer}>
 
@@ -81,7 +80,6 @@ class Statbox extends Component {
                     </div>
 
                 </div>
-
 
             );
 

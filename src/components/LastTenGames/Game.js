@@ -17,9 +17,9 @@ class Game extends Component {
 
         const boxStat = {
             width: '1px',
-            // margin:'0 15px',
-            // overflow: 'hidden',
-            // border: '1px solid purple'
+            fontFamily: "Rajdhani",
+            fontWeight: 400,
+            lineHeight: 1.5
         };
 
         // TODO If the props aren't loaded yet, don't display anything

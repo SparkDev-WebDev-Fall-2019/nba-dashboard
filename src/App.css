@@ -44,6 +44,12 @@ html {
   line-height: 1.5;
 }
 .styled-text {
-  border: 2px solid yellow;
-  min-width: 0;
+  border: 2px solid green;
+  max-width: 50%;
+  min-width: 20%;
 }
+
+/* #root > div > div.css-2b097c-container > div.css-26l3qy-menu {
+  height: 500px;
+  overflow: scroll;
+} */

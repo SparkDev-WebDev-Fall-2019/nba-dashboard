@@ -304,7 +304,7 @@ export default class Linechart extends PureComponent {
         }
     }
 
-
+    
 
     // statToolTip(param) {
     //     switch (param) {
@@ -392,7 +392,7 @@ export default class Linechart extends PureComponent {
 
         const { selectedOption } = this.state;
 
-
+        
 
         // TODO If the props aren't loaded yet, don't display anything
         if (!this.props.LastTenGames.pointsArray) {
@@ -406,7 +406,7 @@ export default class Linechart extends PureComponent {
                 <div style={lastTenGamesContainer}>
 
                     {/* <h1 style={{ color: '#eceff1' }}> LAST TEN GAMES </h1> */}
-                    <h1 style={header}> LAST TEN GAMES </h1>
+                    <h1 className='white-styled-text'> LAST TEN GAMES </h1>
 
                     <div style={{ width: '100px' }}>
 

@@ -261,12 +261,10 @@ class App extends React.Component {
     const customStyles = {
 
       control: styles => ({ ...styles, backgroundColor: 'rgb(44,44,44)' }),
-
-      menuList: () => ({
-        // none of react-select's styles are passed to <Control />
-        color: 'white',
-        backgroundColor: 'rgb(66,66,66)'
-      }),
+      
+      // Styles for list of options 
+      menuList: styles => ({ ...styles, height: 200 , color:'white',backgroundColor:'rgb(66,66,66)' }),
+      input: styles => ({ ...styles, color:'white' })
 
 
     }
@@ -286,7 +284,6 @@ class App extends React.Component {
           {/* <img src={this.state.playerHeadshot} alt='Player Pic' /> */}
 
           <PlayerSelect
-            maxMenuHeight={190}
             styles={customStyles}
             value={selectedOption}
             onChange={this.handleChange}
