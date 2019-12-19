@@ -42,7 +42,7 @@ class LastTenGames extends Component {
 
         // TODO If the props aren't loaded yet, don't display anything
         if (!this.props.games) {
-            return (<div> Not loaded yet</div>)
+            return (<div> </div>)
         }
         else {
 

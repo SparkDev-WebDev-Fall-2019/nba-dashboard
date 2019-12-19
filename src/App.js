@@ -281,7 +281,7 @@ class App extends React.Component {
 
         <div className="body">
 
-          <img src={this.state.playerHeadshot} alt='Player Pic' />
+          {/* <img src={this.state.playerHeadshot} alt='Player Pic' /> */}
 
           <ReactSelect
             styles={customStyles}
@@ -293,7 +293,7 @@ class App extends React.Component {
           <button
             onClick={this.getSelectedPlayerInfo.bind(this, this.state.searchedPlayersName)}
           >
-            Click Me!
+            Get Stats!
         </button>
 
           <PlayerInfo

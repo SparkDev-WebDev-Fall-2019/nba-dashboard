@@ -1,3 +1,7 @@
+html{
+    background-color: rgb(33,33,33);
+}
+
 .body {
     height: 100%;
 
@@ -11,7 +15,7 @@
 }
 
 /* Color Of Text In React-Select In Last Ten Section  */
-#root > div > div:nth-child(6) > div:nth-child(2) > div > div > div.css-1hwfws3 > div{
+#root > div > div:nth-child(5) > div:nth-child(2) > div > div > div.css-1hwfws3 > div{
     color: white;
 }
 
