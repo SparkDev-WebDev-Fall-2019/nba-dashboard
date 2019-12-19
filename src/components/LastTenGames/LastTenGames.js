@@ -34,6 +34,13 @@ class LastTenGames extends Component {
             border: '1px solid blue'
         };
 
+        const header = {
+            fontFamily: "Rajdhani",
+            fontWeight: 400,
+            lineHeight: 1.5,
+            color: '#eceff1'
+        };
+
         const statLabel = {
             width: '5px',
             margin: '0 15px'
@@ -52,7 +59,7 @@ class LastTenGames extends Component {
 
                 <div style={lastTenGamesStatsContainer} >
 
-                    <h1> Last Ten Games </h1>
+                    <h1 style={header}> Last Ten Games </h1>
 
                     <div style={boxScore}>
 

@@ -19,7 +19,7 @@ import React from 'react';
 // Components
 import PlayerInfo from './components/PlayerInfo';
 
-import ReactSelect from 'react-select';
+import PlayerSelect from 'react-select';
 import LineChart from './components/LineChart';
 import StatboxAverages from './components/statbox/StatboxAverages';
 import LastTenGames from './components/LastTenGames/LastTenGames';
@@ -271,6 +271,8 @@ class App extends React.Component {
 
     }
 
+    
+
     if (!this.state.allPlayers) {
       return (<div></div>)
     } else {
@@ -283,7 +285,8 @@ class App extends React.Component {
 
           {/* <img src={this.state.playerHeadshot} alt='Player Pic' /> */}
 
-          <ReactSelect
+          <PlayerSelect
+            maxMenuHeight={190}
             styles={customStyles}
             value={selectedOption}
             onChange={this.handleChange}
