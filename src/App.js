@@ -20,7 +20,7 @@ import React from 'react';
 import PlayerInfo from './components/PlayerInfo';
 
 import PlayerSelect from 'react-select';
-import LineChart from './components/LineChart';
+import LineChart from './components/LineChart/LineChart';
 import StatboxAverages from './components/statbox/StatboxAverages';
 import LastTenGames from './components/LastTenGames/LastTenGames';
 import './App.css';
@@ -171,15 +171,15 @@ class App extends React.Component {
         res.forEach(game => {
 
           // console.log(game);
-          if (game.min === "" || game.min.length === 0) {
-            console.log("Did not play this game");
-            console.log(game);
+          // if (game.min === "" || game.min.length === 0) {
+          //   console.log("Did not play this game");
+          //   console.log(game);
 
-          }
-          else {
+          // }
+          // else {
 
             pointsSum += Number(game.points)
-            lastTenGamesAverages.pointsArray.push(Number(game.points))
+            lastTenGamesAverages.pointsArray.push((game.points))
 
             reboundsSum += Number(game.defReb) + Number(game.offReb)
             lastTenGamesAverages.reboundsArray.push(Number(game.defReb) + Number(game.offReb))
@@ -215,7 +215,7 @@ class App extends React.Component {
             // lastTenGamesAverages.minutesArray.push(Number(game.min))
 
 
-          }
+          // }
 
         });
 

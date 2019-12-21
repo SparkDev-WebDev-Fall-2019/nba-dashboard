@@ -45,11 +45,19 @@ html {
 }
 .styled-text {
   border: 2px solid green;
-  max-width: 50%;
-  min-width: 20%;
+  /* max-width: 50%;
+  min-width: 20%; */
 }
 
 /* #root > div > div.css-2b097c-container > div.css-26l3qy-menu {
   height: 500px;
   overflow: scroll;
 } */
+
+/* Custom ToolTip For Line Chart */
+.recharts-tooltip-wrapper .custom-tooltip {
+  line-height: 5px;
+  border: 1px solid #f5f5f5;
+  background-color: rgb(33, 33, 33);
+  padding-bottom: 0%;
+}

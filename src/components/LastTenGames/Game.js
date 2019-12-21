@@ -11,8 +11,16 @@ class Game extends Component {
             display: 'flex',
             flexWrap: 'noWrap',
             justifyContent: 'space-around',
+            padding: '10px 15px',
+            // border: '1px solid Green'
+        };
+        
+        const DNPBox = {
+            display: 'flex',
+            
+            justifyContent: 'center',
             padding: '0 15px',
-            border: '1px solid Green'
+            // border: '1px solid Green'
         };
 
         const boxStat = {
@@ -24,7 +32,7 @@ class Game extends Component {
 
         // TODO If the props aren't loaded yet, don't display anything
         if (!this.props.blocks) {
-            return (<div> DNP</div>)
+            return (<div style={DNPBox}> DNP THIS GAME </div>)
         }
         else {
 
