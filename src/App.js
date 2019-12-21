@@ -178,41 +178,41 @@ class App extends React.Component {
           // }
           // else {
 
-            pointsSum += Number(game.points)
-            lastTenGamesAverages.pointsArray.push((game.points))
+          pointsSum += Number(game.points)
+          lastTenGamesAverages.pointsArray.push((game.points))
 
-            reboundsSum += Number(game.defReb) + Number(game.offReb)
-            lastTenGamesAverages.reboundsArray.push(Number(game.defReb) + Number(game.offReb))
+          reboundsSum += Number(game.defReb) + Number(game.offReb)
+          lastTenGamesAverages.reboundsArray.push(Number(game.defReb) + Number(game.offReb))
 
-            assistsSum += Number(game.assists)
-            lastTenGamesAverages.assistsArray.push(Number(game.assists))
+          assistsSum += Number(game.assists)
+          lastTenGamesAverages.assistsArray.push(Number(game.assists))
 
-            stealsSum += Number(game.steals)
-            lastTenGamesAverages.stealsArray.push(Number(game.steals))
+          stealsSum += Number(game.steals)
+          lastTenGamesAverages.stealsArray.push(Number(game.steals))
 
-            blocksSum += Number(game.blocks)
-            lastTenGamesAverages.blocksArray.push(Number(game.blocks))
+          blocksSum += Number(game.blocks)
+          lastTenGamesAverages.blocksArray.push(Number(game.blocks))
 
-            turnOversSum += Number(game.turnovers)
-            lastTenGamesAverages.turnOversArray.push(Number(game.turnovers))
+          turnOversSum += Number(game.turnovers)
+          lastTenGamesAverages.turnOversArray.push(Number(game.turnovers))
 
-            fgASum += Number(game.fga)
-            lastTenGamesAverages.fgAArray.push(Number(game.fga))
+          fgASum += Number(game.fga)
+          lastTenGamesAverages.fgAArray.push(Number(game.fga))
 
-            fgMSum += Number(game.fgm)
-            lastTenGamesAverages.fgMArray.push(Number(game.fgm))
+          fgMSum += Number(game.fgm)
+          lastTenGamesAverages.fgMArray.push(Number(game.fgm))
 
-            fTASum += Number(game.fta)
-            lastTenGamesAverages.ftAArray.push(Number(game.fta))
+          fTASum += Number(game.fta)
+          lastTenGamesAverages.ftAArray.push(Number(game.fta))
 
-            fTMSum += Number(game.ftm)
-            lastTenGamesAverages.ftMArray.push(Number(game.ftm))
+          fTMSum += Number(game.ftm)
+          lastTenGamesAverages.ftMArray.push(Number(game.ftm))
 
-            // Saves indivual players stats of each game , used in LastTenGames component
-            lastTenGamesAverages.games.push(game)
+          // Saves indivual players stats of each game , used in LastTenGames component
+          lastTenGamesAverages.games.push(game)
 
-            // minutesSum += Number(game.min)
-            // lastTenGamesAverages.minutesArray.push(Number(game.min))
+          // minutesSum += Number(game.min)
+          // lastTenGamesAverages.minutesArray.push(Number(game.min))
 
 
           // }
@@ -261,15 +261,15 @@ class App extends React.Component {
     const customStyles = {
 
       control: styles => ({ ...styles, backgroundColor: 'rgb(44,44,44)' }),
-      
+
       // Styles for list of options 
-      menuList: styles => ({ ...styles, height: 200 , color:'white',backgroundColor:'rgb(66,66,66)' }),
-      input: styles => ({ ...styles, color:'white' })
+      menuList: styles => ({ ...styles, height: 200, color: 'white', backgroundColor: 'rgb(66,66,66)' }),
+      input: styles => ({ ...styles, color: 'white' })
 
 
     }
 
-    
+
 
     if (!this.state.allPlayers) {
       return (<div></div>)
@@ -291,6 +291,7 @@ class App extends React.Component {
           />
 
           <button
+            className='searchStats-button'
             onClick={this.getSelectedPlayerInfo.bind(this, this.state.searchedPlayersName)}
           >
             Get Stats!

@@ -13,7 +13,7 @@ class Stat extends Component {
             flex: '1 1 auto', /* Positive flex-shrink */
             padding: '12px',
             color: 'rgb(236,239,241)',
-            border: '1px solid brown'
+            // border: '1px solid brown'
         };
 
         const statStylesHeading = {

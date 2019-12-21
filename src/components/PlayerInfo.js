@@ -12,7 +12,7 @@ class PlayerInfo extends Component {
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
             color: 'rgb(236,239,241)',
-            border: '1px solid green'
+            // border: '1px solid green'
         };
 
         console.log('AVAILABLE PROPS IN Player Section CARD &&****&*', this.props);
@@ -24,13 +24,16 @@ class PlayerInfo extends Component {
 
             return (
                 <div style={playerInfo}>
-    
+
                     <h1> {this.props.PlayerName} </h1>
                     <h2> {this.props.PlayerTeam} </h2>
                     <h2> Position: {this.props.leagues.standard.pos} </h2>
                     <h2> Jersey #: {this.props.leagues.standard.jersey} </h2>
 
+                    <div className='divider'> </div>
+
                 </div>
+
 
             );
 

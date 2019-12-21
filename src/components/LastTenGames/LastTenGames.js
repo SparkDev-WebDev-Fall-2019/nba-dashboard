@@ -14,7 +14,7 @@ class LastTenGames extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0 15px',
-            border: '1px solid purple'
+            // border: '1px solid purple'
         };
 
         const statLabels = {
@@ -22,16 +22,16 @@ class LastTenGames extends Component {
             flexWrap: 'noWrap',
             justifyContent: 'space-around',
             padding: '0 15px',
-            border: '1px solid yellow'
+            // border: '1px solid yellow'
         };
 
         const boxScore = {
             // display: 'flex',
             // flexWrap: 'noWrap',
-            width: '60%',
-            // margin: '0 auto',
+            width: '80%',
+            margin: '20px auto 60px auto',
             // padding: '0 15px',
-            border: '1px solid blue'
+            // border: '1px solid blue'
         };
 
         const header = {

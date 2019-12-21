@@ -12,9 +12,9 @@ class Statbox extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
-            width: '60%',
-            margin: '0 auto',
-            border: '1px solid yellow'
+            width: '100%',
+            margin: '20px auto 20px auto',
+            // borderBottom: '1px solid yellow'
         };
 
         const seasonAveragesContainer = {
@@ -34,7 +34,7 @@ class Statbox extends Component {
             justifyContent: 'center',
             // flex: '1 1 auto', /* Positive flex-shrink */
             // color: 'blue',
-            border: '1px solid blue'
+            // border: '1px solid blue'
         };
 
         const header = {
@@ -44,46 +44,57 @@ class Statbox extends Component {
             color: '#eceff1'
         };
 
-        // TODO If the props aren't loaded yet, don't display anything
-        if (!this.props.playerPPG) {
-            return (<div></div>)
-        }
+        const divider = {
+        marginTop: '20px',
+        width: '40%',
+        height: '1px',
+        backgroundColor: '#616161'
+    };
+
+
+
+    // TODO If the props aren't loaded yet, don't display anything
+    if(!this.props.playerPPG) {
+        return (<div></div>)
+    }
         else {
 
-            console.log('AVAILABLE PLAYER AVERAGES IN SB AVGS', this.props);
+    console.log('AVAILABLE PLAYER AVERAGES IN SB AVGS', this.props);
 
-            return (
+    return (
 
-                <div style={container}>
+        <div style={container}>
 
-                    <div style={seasonAveragesContainer}>
+            <div style={seasonAveragesContainer}>
 
-                        <h1 style={header}> '18 - '19 SEASON AVERAGES </h1>
+                <h1 style={header}> '18 - '19 SEASON AVERAGES </h1>
 
-                        <div style={boxScore}>
+                <div style={boxScore}>
 
-                            <Averages Stat={"PPG"} Average={this.props.playerPPG} />
-                            <Averages Stat={"RPG"} Average={this.props.playerRPG} />
-                            <Averages Stat={"APG"} Average={this.props.playerAPG} />
-                            <Averages Stat={"SPG"} Average={this.props.playerSPG} />
-                            <Averages Stat={"BPG"} Average={this.props.playerBPG} />
-                            <Averages Stat={"TO"} Average={this.props.playerTOPG} />
-                            <Averages Stat={"FGA"} Average={this.props.playerFGAPG} />
-                            <Averages Stat={"FGM"} Average={this.props.playerFGMPG} />
-                            <Averages Stat={"FG%"} Average={this.props.FGPercent} />
-                            <Averages Stat={"FTA"} Average={this.props.playerFTAPG} />
-                            <Averages Stat={"FM"} Average={this.props.playerFTAMPG} />
-                            <Averages Stat={"FT%"} Average={this.props.FTPercent} />
-
-                        </div>
-
-                    </div>
+                    <Averages Stat={"PPG"} Average={this.props.playerPPG} />
+                    <Averages Stat={"RPG"} Average={this.props.playerRPG} />
+                    <Averages Stat={"APG"} Average={this.props.playerAPG} />
+                    <Averages Stat={"SPG"} Average={this.props.playerSPG} />
+                    <Averages Stat={"BPG"} Average={this.props.playerBPG} />
+                    <Averages Stat={"TO"} Average={this.props.playerTOPG} />
+                    <Averages Stat={"FGA"} Average={this.props.playerFGAPG} />
+                    <Averages Stat={"FGM"} Average={this.props.playerFGMPG} />
+                    <Averages Stat={"FG%"} Average={this.props.FGPercent} />
+                    <Averages Stat={"FTA"} Average={this.props.playerFTAPG} />
+                    <Averages Stat={"FM"} Average={this.props.playerFTAMPG} />
+                    <Averages Stat={"FT%"} Average={this.props.FTPercent} />
 
                 </div>
 
-            );
+                <div className='divider'> </div>
 
-        }
+            </div>
+
+        </div>
+
+    );
+
+}
 
     }
 }
