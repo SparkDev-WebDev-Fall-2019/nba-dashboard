@@ -179,7 +179,7 @@ class App extends React.Component {
           // else {
 
           pointsSum += Number(game.points)
-          lastTenGamesAverages.pointsArray.push((game.points))
+          lastTenGamesAverages.pointsArray.push(Number(game.points))
 
           reboundsSum += Number(game.defReb) + Number(game.offReb)
           lastTenGamesAverages.reboundsArray.push(Number(game.defReb) + Number(game.offReb))
@@ -268,8 +268,6 @@ class App extends React.Component {
 
 
     }
-
-
 
     if (!this.state.allPlayers) {
       return (<div></div>)

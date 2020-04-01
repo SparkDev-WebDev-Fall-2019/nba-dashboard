@@ -378,7 +378,6 @@ export default class Linechart extends PureComponent {
 
         const { selectedOption } = this.state;
 
-
         /*
             Line Chart Customization
         */
