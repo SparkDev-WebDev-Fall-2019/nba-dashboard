@@ -25,12 +25,11 @@ import StatboxAverages from './components/statbox/StatboxAverages';
 import LastTenGames from './components/LastTenGames/LastTenGames';
 import './App.css';
 
-import { getPlayerByName } from './API CALLLS/NBA.API'
-import { getPlayerTeam } from './API CALLLS/NBA.API'
-import { getPlayerStats } from './API CALLLS/NBA.API'
-import { getAllNBAPlayers } from './API CALLLS/NBA.API'
-
-const nba = require('nba-api-client');
+// API Calls
+import { getPlayerByName } from './util/NBA.API'
+import { getPlayerTeam } from './util/NBA.API'
+import { getPlayerStats } from './util/NBA.API'
+import { getAllNBAPlayers } from './util/NBA.API'
 
 class App extends React.Component {
   constructor(props) {
@@ -279,9 +278,8 @@ class App extends React.Component {
 
         <div className="body">
 
-          {/* <img src={this.state.playerHeadshot} alt='Player Pic' /> */}
-
           <PlayerSelect
+            className="player-select"
             styles={customStyles}
             value={selectedOption}
             onChange={this.handleChange}
@@ -300,7 +298,6 @@ class App extends React.Component {
             PlayerTeam={this.state.playerTeam}
             {...this.state.currentPlayer}
           />
-
 
           <StatboxAverages
             {...this.state.lastTenGamesAverages}
