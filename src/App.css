@@ -13,15 +13,48 @@ html {
   background-color: rgb(33, 33, 33);
 }
 
-.player-select{
+@media (max-width: 639px) {
 
-  width: 20rem;
-  min-width: 16rem;
-  max-width: 29rem;
+  .player-select{
 
-  margin: 1.25rem auto 0 auto ;
+    max-width: 20rem;
+  
+    margin: 1.85rem auto 0 auto ;
+  
+  }
+
 
 }
+
+
+@media (min-width: 640px) {
+
+  .player-select{
+
+    width: 20rem;
+    max-width: 30rem;
+  
+    margin: 1.85rem auto 0 auto ;
+  
+  }
+
+
+}
+
+@media (min-width: 1024px) { 
+
+  .player-select{
+
+  width: 2000rem;
+  /* min-width: 16rem; */
+  max-width: 49rem; 
+
+  margin: 1.85rem auto 0 auto ;
+
+}
+
+}
+
 
 /******************************************
  
