@@ -16,6 +16,12 @@ TODO
 */
 import React from 'react';
 
+// API Calls
+import { getPlayerByName } from './util/NBA.API'
+import { getPlayerTeam } from './util/NBA.API'
+import { getPlayerStats } from './util/NBA.API'
+import { getAllNBAPlayers } from './util/NBA.API'
+
 // Components
 import PlayerInfo from './components/PlayerInfo';
 
@@ -25,11 +31,6 @@ import StatboxAverages from './components/statbox/StatboxAverages';
 import LastTenGames from './components/LastTenGames/LastTenGames';
 import './App.css';
 
-// API Calls
-import { getPlayerByName } from './util/NBA.API'
-import { getPlayerTeam } from './util/NBA.API'
-import { getPlayerStats } from './util/NBA.API'
-import { getAllNBAPlayers } from './util/NBA.API'
 
 class App extends React.Component {
   constructor(props) {
