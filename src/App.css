@@ -14,47 +14,49 @@ html {
 }
 
 @media (max-width: 639px) {
-
-  .player-select{
-
+ 
+  .player-select {
     max-width: 20rem;
-  
-    margin: 1.85rem auto 0 auto ;
-  
+
+    margin: 1.85rem auto 0 auto;
   }
 
+  .display-for-large-screens {
+    /* border: 10px solid green; */
+    display: none;
+  }
+
+  .display-for-small-screens {
+    display: block;
+  }
 
 }
-
 
 @media (min-width: 640px) {
-
-  .player-select{
-
-    width: 20rem;
-    max-width: 30rem;
   
-    margin: 1.85rem auto 0 auto ;
-  
+  .display-for-large-screens {
+    /* border: 10px solid green; */
+    display: block;
   }
 
+  .display-for-small-screens {
+    display: none;
+  }
 
+  .player-select {
+    max-width: 30rem;
+
+    margin: 1.85rem auto 0 auto;
+  }
 }
 
-@media (min-width: 1024px) { 
+@media (min-width: 1024px) {
+  .player-select {
+    max-width: 40rem;
 
-  .player-select{
-
-  width: 2000rem;
-  /* min-width: 16rem; */
-  max-width: 49rem; 
-
-  margin: 1.85rem auto 0 auto ;
-
+    margin: 1.85rem auto 0 auto;
+  }
 }
-
-}
-
 
 /******************************************
  
@@ -63,25 +65,24 @@ html {
 ******************************************/
 .searchStats-button {
   display: block;
-  
+
   min-width: 9rem;
   max-width: 14rem;
   height: 2.4rem;
-  
+
   padding: 0.3em 1.2em;
-  margin: 1.25rem auto 0 auto ;
+  margin: 1.25rem auto 0 auto;
 
   border-radius: 2em;
-  
+
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
 
   text-align: center;
-  
+
   color: #ffffff;
   background-color: rgb(33, 33, 33);
-
 }
 
 .searchStats-button:hover {
@@ -154,5 +155,3 @@ html {
   background-color: rgb(33, 33, 33);
   padding: 20px;
 }
-
-

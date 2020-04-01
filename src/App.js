@@ -17,18 +17,20 @@ TODO
 import React from 'react';
 
 // API Calls
-import { getPlayerByName } from './util/NBA.API'
-import { getPlayerTeam } from './util/NBA.API'
-import { getPlayerStats } from './util/NBA.API'
-import { getAllNBAPlayers } from './util/NBA.API'
+import { getPlayerByName } from './util/NBA.API';
+import { getPlayerTeam } from './util/NBA.API';
+import { getPlayerStats } from './util/NBA.API';
+import { getAllNBAPlayers } from './util/NBA.API';
 
 // Components
 import PlayerInfo from './components/PlayerInfo';
 
 import PlayerSelect from 'react-select';
 import LineChart from './components/LineChart/LineChart';
-import StatboxAverages from './components/statbox/StatboxAverages';
 import LastTenGames from './components/LastTenGames/LastTenGames';
+import BoxScore from './components/statbox/BoxScore';
+
+
 import './App.css';
 
 
@@ -300,16 +302,25 @@ class App extends React.Component {
             {...this.state.currentPlayer}
           />
 
-          <StatboxAverages
+        <BoxScore
             {...this.state.lastTenGamesAverages}
+            display='display-for-small-screens'
+            boxSize='small'
+          /> 
+      
+        <BoxScore
+            {...this.state.lastTenGamesAverages}
+            display='display-for-large-screens'
+            boxSize='large'
+          /> 
+          
 
-          />
+            <LineChart
+              {...this.state.selectedOption}
+              LastTenGames={this.state.lastTenGamesAverages}
 
-          <LineChart
-            {...this.state.selectedOption}
-            LastTenGames={this.state.lastTenGamesAverages}
+            />
 
-          />
 
           <LastTenGames
             {...this.state.lastTenGamesAverages}
