@@ -115,14 +115,7 @@ html {
   React-Select In Last Ten Games Chart Section
 
  ******************************************/
-#root
-  > div
-  > div:nth-child(5)
-  > div:nth-child(2)
-  > div
-  > div
-  > div.css-1hwfws3
-  > div {
+ #root > div > div:nth-child(6) > div:nth-child(2) > div > div > div.css-1hwfws3 > div {
   widows: 60px;
   color: white;
 }

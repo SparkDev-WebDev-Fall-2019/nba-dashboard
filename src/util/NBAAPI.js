@@ -115,7 +115,7 @@ export async function getPlayerStats(playerID) {
             // From List of Games, get the last 10
             let lastTenGames = listOfPlayerBoxScores.slice(listOfPlayerBoxScores.length - 10)
 
-            console.log('RESPONSE FROM STATS CALL :',response.data.api.statistics)
+            // console.log('RESPONSE FROM STATS CALL :',response.data.api.statistics)
             return lastTenGames;
 
             // console.log(`Last 10 games Played: `, lastTenGames);

@@ -70,7 +70,7 @@ class App extends React.Component {
           allPlayers: formattedListForSelect
         })
 
-        console.log('THE LIST :', this.state.allPlayers);
+        // console.log('THE LIST :', this.state.allPlayers);
 
       })
 
@@ -95,10 +95,10 @@ class App extends React.Component {
     let stateObject = {};
 
     let playerFirstName = (playerName.split(" ")[0]);
-    console.log('Player First Name:', playerFirstName);
+    // console.log('Player First Name:', playerFirstName);
 
     let playerLastName = (playerName.split(" ")[1]);
-    console.log('Player Last Name: ', playerLastName);
+    // console.log('Player Last Name: ', playerLastName);
 
     stateObject.currentPlayerFullName = playerName
 
@@ -238,7 +238,7 @@ class App extends React.Component {
 
         // lastTenGamesAverages.playerMPG = minutesSum / res.length
 
-        console.log(lastTenGamesAverages);
+        // console.log(lastTenGamesAverages);
 
         stateObject.lastTenGamesAverages = lastTenGamesAverages
 
@@ -255,7 +255,9 @@ class App extends React.Component {
       searchedPlayersName: selectedOption.value
 
     });
-    console.log(`Option selected:`, selectedOption);
+
+    // console.log(`Option selected:`, selectedOption);
+
   };
 
   render() {

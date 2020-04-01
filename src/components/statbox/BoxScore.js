@@ -9,13 +9,12 @@ class BoxScore extends Component {
 
     render() {
 
-        console.log(`MMMMMMMMMM `, this.props)
         if (!this.props.playerPPG) {
             return (<div></div>)
         }
         else {
 
-            console.log('ewfwagraergAVAILABLE PLAYER AVERAGES IN SB AVGS', this.props.playerPPG);
+            // console.log('AVAILABLE PLAYER AVERAGES IN SB AVGS', this.props.playerPPG);
 
             return (
 

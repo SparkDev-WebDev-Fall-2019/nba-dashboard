@@ -8,7 +8,7 @@ class Statbox extends Component {
     }
     render() {
 
-        console.log('PPPPPPPPPPPPP', this.props)
+        // console.log('Props For Statbox Averages: ', this.props)
 
         const container = {
             display: 'flex',
@@ -54,7 +54,7 @@ class Statbox extends Component {
         }
         else {
 
-            console.log('AVAILABLE PLAYER AVERAGES IN SB AVGS', this.props);
+            // console.log('AVAILABLE PLAYER AVERAGES IN SB AVGS', this.props);
 
             return (
 

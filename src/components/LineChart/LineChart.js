@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react';
 import ReactSelect from 'react-select';
 
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
 export default class Linechart extends PureComponent {
@@ -387,8 +387,8 @@ export default class Linechart extends PureComponent {
                 return (
                     <div className="custom-tooltip">
 
-                        {console.log('payload****************', payload)}
-                        {console.log('label****************', label)}
+                        {/* {console.log('payload****************', payload)} */}
+                        {/* {console.log('label****************', label)} */}
                         <p className="label">{`${label} : ${payload[0].value}`}</p>
                         {/* <p className="intro">{getIntroOfPage(label)}</p> */}
                         {/* <p className="desc">Anything you want can be displayed here.</p> */}
@@ -407,7 +407,7 @@ export default class Linechart extends PureComponent {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '100%',
+            maxWidth: '84rem',
             margin: '0 auto',
             flex: '1 1 auto', /* Positive flex-shrink */
             // overflow: 'hidden',
@@ -429,7 +429,7 @@ export default class Linechart extends PureComponent {
             return (<div></div>)
         } else {
 
-            console.log('AVAILABLE PROPS IN LINE CHART', this.props);
+            // console.log('AVAILABLE PROPS IN LINE CHART', this.props);
 
             return (
 
@@ -451,27 +451,31 @@ export default class Linechart extends PureComponent {
 
                     </div>
 
+                    <ResponsiveContainer  width="95%" height={400}>
 
-                    <LineChart
-                        className='line-chart'
-                        width={1200}
-                        height={400}
-                        data={this.statToShow(this.state.selectedOption.value)}
-                        margin={{
-                            top: 30, right: 0, left: 0, bottom: 0,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip content={<CustomTooltip />} />
-                        <Legend />
-                        <Line type="monotone" dataKey={this.statToolTip(this.state.selectedOption.value)} stroke="#8884d8" />
-                        {/* <Line type="monotone" dataKey="stat" stroke="#8884d8" /> */}
-                        {/* <Line type="monotone" dataKey="Rebounds" stroke="#82ca9d" />
+                        <LineChart
+                            className='line-chart'
+                            // width={1200}
+                            // height={400}
+                            data={this.statToShow(this.state.selectedOption.value)}
+                            margin={{
+                                top: 30, right: 0, left: 0, bottom: 0,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend />
+                            <Line type="monotone" dataKey={this.statToolTip(this.state.selectedOption.value)} stroke="#8884d8" />
+                            {/* <Line type="monotone" dataKey="stat" stroke="#8884d8" /> */}
+                            {/* <Line type="monotone" dataKey="Rebounds" stroke="#82ca9d" />
                         <Line type="monotone" dataKey="Assists" stroke="red" /> */}
 
-                    </LineChart>
+                        </LineChart>
+
+                    </ResponsiveContainer>
+
 
                     <div className='divider'> </div>
 
