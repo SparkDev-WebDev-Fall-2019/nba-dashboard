@@ -14,7 +14,7 @@ class LastTenGames extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0 15px',
-            border: '1px solid purple'
+            // border: '1px solid purple'
         };
 
         const statLabels = {
@@ -22,7 +22,7 @@ class LastTenGames extends Component {
             flexWrap: 'noWrap',
             justifyContent: 'space-around',
             padding: '0 15px',
-            border: '1px solid yellow'
+            // border: '1px solid yellow'
         };
 
         const boxScore = {
@@ -31,7 +31,7 @@ class LastTenGames extends Component {
             width: '80%',
             margin: '20px auto 60px auto',
             // padding: '0 15px',
-            border: '1px solid blue'
+            // border: '1px solid blue'
         };
 
         const header = {
@@ -43,11 +43,11 @@ class LastTenGames extends Component {
 
         const statLabel = {
             width: '5px',
-            margin: '0 15px',
-            border: '1px solid purple'
+            margin: '0 15px'
+            // border: '1px solid purple'
         };
 
-        //? If the props aren't loaded yet, don't display anything
+        // TODO If the props aren't loaded yet, don't display anything
         if (!this.props.games) {
             return (<div> </div>)
         }
