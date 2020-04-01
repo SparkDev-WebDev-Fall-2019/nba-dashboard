@@ -17,10 +17,10 @@ TODO
 import React from 'react';
 
 // API Calls
-import { getPlayerByName } from './util/NBA.API';
-import { getPlayerTeam } from './util/NBA.API';
-import { getPlayerStats } from './util/NBA.API';
-import { getAllNBAPlayers } from './util/NBA.API';
+import { getPlayerByName } from './util/NBAAPI';
+import { getPlayerTeam } from './util/NBAAPI';
+import { getPlayerStats } from './util/NBAAPI';
+import { getAllNBAPlayers } from './util/NBAAPI';
 
 // Components
 import PlayerInfo from './components/PlayerInfo';

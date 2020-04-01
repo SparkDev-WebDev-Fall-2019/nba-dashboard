@@ -17,8 +17,8 @@ class Statbox extends Component {
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
             width: '100%',
-            margin: '20px auto 20px auto',
-            border: '1px solid yellow'
+            margin: '20px auto 30px auto',
+            // border: '1px solid yellow'
         };
 
         // const seasonAveragesContainer = {
@@ -37,7 +37,7 @@ class Statbox extends Component {
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
             color: 'blue',
-            border: '1px solid blue'
+            // border: '1px solid blue'
         };
 
         const header = {

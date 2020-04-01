@@ -11,11 +11,12 @@ class PlayerInfo extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             flex: '1 1 auto', /* Positive flex-shrink */
+            marginTop:'3.2rem',
             color: 'rgb(236,239,241)',
             // border: '1px solid green'
         };
 
-        console.log('AVAILABLE PROPS IN Player Section CARD &&****&*', this.props);
+        // console.log('AVAILABLE PROPS IN Player Section CARD &&****&*', this.props);
 
         if (!this.props.leagues) {
             return (<div></div>)
