@@ -13,8 +13,38 @@ html {
   background-color: rgb(33, 33, 33);
 }
 
+table {
+  /* display:"block"; */
+  margin: 1.85rem auto 0 auto;
+  max-width: 90rem;
+  font-family: "Rajdhani";
+
+  /* border: 4px solid green; */
+}
+
+.table-container{
+
+  overflow-x:auto;
+  margin-top: 1.85rem ;
+/* max-width: 50rem; */
+
+/* border: 4px solid blue; */
+}
+
+th,
+td {
+  padding: 1rem;
+}
+
+th {
+  font-size: 1.4rem;
+}
+
+td {
+  font-size: 1.4rem;
+}
+
 @media (max-width: 639px) {
- 
   .player-select {
     max-width: 20rem;
 
@@ -29,11 +59,9 @@ html {
   .display-for-small-screens {
     display: block;
   }
-
 }
 
 @media (min-width: 640px) {
-  
   .display-for-large-screens {
     /* border: 10px solid green; */
     display: block;
@@ -115,7 +143,14 @@ html {
   React-Select In Last Ten Games Chart Section
 
  ******************************************/
- #root > div > div:nth-child(6) > div:nth-child(2) > div > div > div.css-1hwfws3 > div {
+#root
+  > div
+  > div:nth-child(6)
+  > div:nth-child(2)
+  > div
+  > div
+  > div.css-1hwfws3
+  > div {
   widows: 60px;
   color: white;
 }

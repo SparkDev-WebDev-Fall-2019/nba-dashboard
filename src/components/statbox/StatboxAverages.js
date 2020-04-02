@@ -21,16 +21,6 @@ class Statbox extends Component {
             // border: '1px solid yellow'
         };
 
-        // const seasonAveragesContainer = {
-        //     display: 'flex',
-        //     flexDirection: 'column',
-        //     alignItems: 'center',
-        //     justifyContent: 'center',
-        //     flex: '1 1 auto', /* Positive flex-shrink */
-        //     color: 'blue',
-        //     border: '10px solid green'
-        // };
-
         const boxScore = {
             display: 'flex',
             alignItems: 'center',

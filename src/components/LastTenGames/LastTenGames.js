@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Game from './Game';
 
 class LastTenGames extends Component {
     state = {
@@ -7,97 +6,96 @@ class LastTenGames extends Component {
     }
     render() {
 
-        const lastTenGamesStatsContainer = {
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'noWrap',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 15px',
-            // border: '1px solid purple'
-        };
-
-        const statLabels = {
-            display: 'flex',
-            flexWrap: 'noWrap',
-            justifyContent: 'space-around',
-            padding: '0 15px',
-            // border: '1px solid yellow'
-        };
-
-        const boxScore = {
-            // display: 'flex',
-            // flexWrap: 'noWrap',
-            width: '80%',
-            margin: '20px auto 60px auto',
-            // padding: '0 15px',
-            // border: '1px solid blue'
-        };
-
         const header = {
             fontFamily: "Rajdhani",
             fontWeight: 400,
             lineHeight: 1.5,
+            textAlign: "center",
             color: '#eceff1'
         };
 
-        const statLabel = {
-            width: '5px',
-            margin: '0 15px'
-            // border: '1px solid purple'
-        };
-
-        // TODO If the props aren't loaded yet, don't display anything
+        //? If the props aren't loaded yet, don't display anything
         if (!this.props.games) {
             return (<div> </div>)
         }
         else {
 
-            console.log('AVAILABLE PLAYER STATS IN LAST 10 GAMES', this.props.games[0]);
+            console.log(' PLAYER STATS IN LAST 10 GAMES', this.props.games);
+
+            const statRows = this.props.games.map((game) => {
+
+                return <tr key={game.gameId}>
+
+                    <td>{game.min}</td>
+                    <td>{game.fgm}</td>
+                    <td>{game.fga}</td>
+                    <td>{game.fgp}</td>
+                    <td>{game.ftm}</td>
+                    <td>{game.fta}</td>
+                    <td>{game.ftp}</td>
+                    <td>{game.offReb}</td>
+                    <td>{game.defReb}</td>
+                    <td>{game.totReb}</td>
+                    <td>{game.assists}</td>
+                    <td>{game.steals}</td>
+                    <td>{game.blocks}</td>
+                    <td>{game.turnovers}</td>
+                    <td>{game.pFouls}</td>
+                    <td>{game.points}</td>
+
+                </tr>
+
+            })
 
             return (
 
-                <div style={lastTenGamesStatsContainer} >
+                <React.Fragment>
 
                     <h1 style={header}> Last Ten Games </h1>
 
-                    <div style={boxScore}>
+                    <div className="table-container">
 
-                        <div style={statLabels}>
+                        <table>
 
-                            <div style={statLabel}> MIN </div>
-                            <div style={statLabel}> FGM </div>
-                            <div style={statLabel}> FGA </div>
-                            <div style={statLabel}> FG% </div>
-                            <div style={statLabel}> FTM </div>
-                            <div style={statLabel}> FTA </div>
-                            <div style={statLabel}> FT% </div>
-                            <div style={statLabel}> OREB </div>
-                            <div style={statLabel}> DREB </div>
-                            <div style={statLabel}> REB </div>
-                            <div style={statLabel}> AST </div>
-                            <div style={statLabel}> STL </div>
-                            <div style={statLabel}> BLK </div>
-                            <div style={statLabel}> TO </div>
-                            <div style={statLabel}> PF </div>
-                            <div style={statLabel}> PTS </div>
+                            <thead>
 
-                        </div>
+                                <tr>
 
-                        <Game {...this.props.games[0]} />
-                        <Game {...this.props.games[1]} />
-                        <Game {...this.props.games[2]} />
-                        <Game {...this.props.games[3]} />
-                        <Game {...this.props.games[4]} />
-                        <Game {...this.props.games[5]} />
-                        <Game {...this.props.games[6]} />
-                        <Game {...this.props.games[7]} />
-                        <Game {...this.props.games[8]} />
-                        <Game {...this.props.games[9]} />
+                                    <th>MIN</th>
+                                    <th>FGM</th>
+                                    <th>FGA</th>
+                                    <th>FG%</th>
+                                    <th>FTM</th>
+                                    <th>FTA</th>
+                                    <th>FT%</th>
+                                    <th>OREB</th>
+                                    <th>DREB</th>
+                                    <th>REB</th>
+                                    <th>AST</th>
+                                    <th>STL</th>
+                                    <th>BLK</th>
+                                    <th>TO</th>
+                                    <th>PF</th>
+                                    <th>PTS</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {statRows}
+
+                            </tbody>
+
+                        </table>
+
 
                     </div>
 
-                </div>
+
+                </React.Fragment>
+
             );
 
         }

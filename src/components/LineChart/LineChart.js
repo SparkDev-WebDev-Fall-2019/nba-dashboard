@@ -407,7 +407,7 @@ export default class Linechart extends PureComponent {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            maxWidth: '84rem',
+            maxWidth: '70rem',
             margin: '0 auto',
             flex: '1 1 auto', /* Positive flex-shrink */
             // overflow: 'hidden',
