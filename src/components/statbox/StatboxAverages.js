@@ -91,9 +91,9 @@ class Statbox extends Component {
                                 <Averages Stat={"APG"} Average={this.props.playerAPG} />
                                 <Averages Stat={"SPG"} Average={this.props.playerSPG} />
                                 <Averages Stat={"BPG"} Average={this.props.playerBPG} />
-                                <Averages Stat={"TO"} Average={this.props.playerTOPG} />
+                                {/* <Averages Stat={"TO"} Average={this.props.playerTOPG} />
                                 <Averages Stat={"FGA"} Average={this.props.playerFGAPG} />
-                                <Averages Stat={"FGM"} Average={this.props.playerFGMPG} />
+                                <Averages Stat={"FGM"} Average={this.props.playerFGMPG} /> */}
 
                             </div>
 

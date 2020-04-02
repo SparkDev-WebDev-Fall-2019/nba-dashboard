@@ -451,7 +451,7 @@ export default class Linechart extends PureComponent {
 
                     </div>
 
-                    <ResponsiveContainer  width="95%" height={400}>
+                    <ResponsiveContainer  width="99%" height={400}>
 
                         <LineChart
                             className='line-chart'
@@ -459,7 +459,7 @@ export default class Linechart extends PureComponent {
                             // height={400}
                             data={this.statToShow(this.state.selectedOption.value)}
                             margin={{
-                                top: 30, right: 0, left: 0, bottom: 0,
+                                top: 30, right: 30, left: 0, bottom: 0,
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />

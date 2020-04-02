@@ -23,7 +23,7 @@ import { getPlayerStats } from './util/NBAAPI';
 import { getAllNBAPlayers } from './util/NBAAPI';
 
 // Components
-import PlayerInfo from './components/PlayerInfo';
+import PlayerInfo from './components/Player-Info/PlayerInfo';
 
 import PlayerSelect from 'react-select';
 import LineChart from './components/LineChart/LineChart';
